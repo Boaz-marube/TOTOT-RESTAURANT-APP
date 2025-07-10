@@ -26,7 +26,7 @@ const NavBar = () => {
 
         {/* Desktop Navigation */}
         <nav
-          className="items-center hidden space-x-6 md:flex"
+          className="items-center hidden space-x-6 md:flex font-bold"
           aria-label="Main navigation"
         >
           <Link to="/" className="nav-link">
@@ -60,13 +60,16 @@ const NavBar = () => {
 
           {/* Other Links */}
           <a href="#story" className="nav-link">
-            Our Story
+            Reservation Form
           </a>
           <a href="#signature-dish" className="nav-link">
             Signature Dishes
           </a>
           <a href="#feedback" className="nav-link">
-            Feedback
+            Chatbot
+          </a>
+          <a href="#feedback" className="nav-link">
+            Footer
           </a>
 
           {/* Theme Toggle */}
@@ -75,21 +78,34 @@ const NavBar = () => {
 
         {/* Hamburger Menu */}
         <div className="flex md:hidden">
-          <button
+        <button
             onClick={toggleMobileMenu}
-            className="flex flex-col items-center justify-center w-10 h-10 focus:outline-none"
-          >
-            <span className="hamburger-line"></span>
-            <span className="hamburger-line mt-1.5"></span>
-            <span className="hamburger-line mt-1.5"></span>
-          </button>
+            className="flex flex-col items-center justify-center w-10 h-10 focus:outline-none relative"
+        >
+            <span
+            className={`hamburger-line bg-gray-100 h-1 w-10 rounded transform transition duration-300 ease-in-out ${
+                mobileMenuOpen ? 'rotate-45 translate-y-3' : ''
+            }`}
+            ></span>
+            <span
+            className={`hamburger-line mt-1.5 bg-gray-100 h-1 w-10 rounded transition duration-300 ease-in-out ${
+                mobileMenuOpen ? 'opacity-0' : ''
+            }`}
+            ></span>
+            <span
+            className={`hamburger-line mt-1.5 bg-gray-100 h-1 w-10 rounded transform transition duration-300 ease-in-out ${
+                mobileMenuOpen ? '-rotate-45 -translate-y-2' : ''
+            }`}
+            ></span>
+        </button>
         </div>
+
       </div>
 
       {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div className="absolute left-0 w-full text-white bg-black shadow-lg top-full dark:bg-gray-900">
-          <nav className="flex flex-col py-4" aria-label="Mobile navigation">
+        <div className="absolute md:hidden left-0 pl-2 w-full text-white bg-black shadow-lg top-full dark:bg-gray-900 font-bold">
+          <nav className="flex flex-col py-4 " aria-label="Mobile navigation">
             <Link
               to="/"
               className="mobile-link"
@@ -97,12 +113,12 @@ const NavBar = () => {
             >
               Home
             </Link>
-
+            <hr className="border-t border-gray-300 my-2"/>
             {/* Dropdown */}
             <div>
               <button
                 onClick={toggleMenuDropdown}
-                className="flex items-center justify-between w-full px-6 py-3 text-left transition-colors hover:bg-gray-800"
+                className="flex items-center justify-between w-full px-0 py-0 text-left transition-colors hover:bg-gray-800 pr-4"
               >
                 Menu <span>{menuDropdownOpen ? "-" : "+"}</span>
               </button>
@@ -124,14 +140,15 @@ const NavBar = () => {
                 </div>
               )}
             </div>
-
+            <hr className="border-t border-gray-300 my-2"/>
             <a
               href="#story"
               className="mobile-link"
               onClick={() => setMobileMenuOpen(false)}
             >
-              Our Story
+              Reservation 
             </a>
+            <hr className="border-t border-gray-300 my-2"/>
             <a
               href="#signature-dish"
               className="mobile-link"
@@ -139,16 +156,17 @@ const NavBar = () => {
             >
               Signature Dishes
             </a>
+            <hr className="border-t border-gray-300 my-2"/>
             <a
               href="#feedback"
               className="mobile-link"
               onClick={() => setMobileMenuOpen(false)}
             >
-              Feedback Form
+              Footer
             </a>
-
+            <hr className="border-t border-gray-300 my-2"/>
             {/* Mobile Theme Toggle */}
-            <div className="px-6 py-3">
+            <div className="px-0 py-0">
               <ThemeToggle />
             </div>
           </nav>

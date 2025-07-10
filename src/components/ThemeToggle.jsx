@@ -7,9 +7,9 @@ const ThemeToggle = () => {
   return (
     <button
       onClick={toggleTheme}
-      className="p-2 transition-colors rounded-full hover:bg-amber-200 dark:hover:bg-gray-700"
+      className="p-2 transition-colors rounded-full hover:bg-amber-200 dark:hover:bg-gray-700 hover:text-black dark:hover:text-white"
     >
-      {isDarkMode ? "☀️" : "🌙"}
+      {isDarkMode ? "☀️ Light Mode" : "🌙 DarkMode"}
     </button>
   );
 };
