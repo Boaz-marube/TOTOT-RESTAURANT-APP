@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import ThemeToggle from "./ThemeToggle";
-
+import logo from "../assets/toto logo.png";
 const NavBar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [menuDropdownOpen, setMenuDropdownOpen] = useState(false);
@@ -21,12 +21,17 @@ const NavBar = () => {
       <div className="max-w-[1200px] mx-auto px-4 py-3 flex justify-between items-center">
         {/* Logo */}
         <div className="flex items-center space-x-2">
-          <img src="/base/images/toto logo.png" alt="Toto Logo" className="w-9 h-9" />
+          <img src={logo} alt="Toto Logo" className="w-9 h-9" />
         </div>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center space-x-6" aria-label="Main navigation">
-          <Link to="/" className="nav-link">Home</Link>
+        <nav
+          className="items-center hidden space-x-6 md:flex"
+          aria-label="Main navigation"
+        >
+          <Link to="/" className="nav-link">
+            Home
+          </Link>
 
           {/* Dropdown */}
           <div className="relative">
@@ -54,9 +59,15 @@ const NavBar = () => {
           </div>
 
           {/* Other Links */}
-          <a href="#story" className="nav-link">Our Story</a>
-          <a href="#signature-dish" className="nav-link">Signature Dishes</a>
-          <a href="#feedback" className="nav-link">Feedback</a>
+          <a href="#story" className="nav-link">
+            Our Story
+          </a>
+          <a href="#signature-dish" className="nav-link">
+            Signature Dishes
+          </a>
+          <a href="#feedback" className="nav-link">
+            Feedback
+          </a>
 
           {/* Theme Toggle */}
           <ThemeToggle />
@@ -79,13 +90,19 @@ const NavBar = () => {
       {mobileMenuOpen && (
         <div className="absolute left-0 w-full text-white bg-black shadow-lg top-full dark:bg-gray-900">
           <nav className="flex flex-col py-4" aria-label="Mobile navigation">
-            <Link to="/" className="mobile-link" onClick={() => setMobileMenuOpen(false)}>Home</Link>
+            <Link
+              to="/"
+              className="mobile-link"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Home
+            </Link>
 
             {/* Dropdown */}
             <div>
               <button
                 onClick={toggleMenuDropdown}
-                className="flex justify-between items-center px-6 py-3 w-full text-left transition-colors hover:bg-gray-800"
+                className="flex items-center justify-between w-full px-6 py-3 text-left transition-colors hover:bg-gray-800"
               >
                 Menu <span>{menuDropdownOpen ? "-" : "+"}</span>
               </button>
@@ -108,9 +125,27 @@ const NavBar = () => {
               )}
             </div>
 
-            <a href="#story" className="mobile-link" onClick={() => setMobileMenuOpen(false)}>Our Story</a>
-            <a href="#signature-dish" className="mobile-link" onClick={() => setMobileMenuOpen(false)}>Signature Dishes</a>
-            <a href="#feedback" className="mobile-link" onClick={() => setMobileMenuOpen(false)}>Feedback Form</a>
+            <a
+              href="#story"
+              className="mobile-link"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Our Story
+            </a>
+            <a
+              href="#signature-dish"
+              className="mobile-link"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Signature Dishes
+            </a>
+            <a
+              href="#feedback"
+              className="mobile-link"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Feedback Form
+            </a>
 
             {/* Mobile Theme Toggle */}
             <div className="px-6 py-3">
