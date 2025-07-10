@@ -1,12 +1,20 @@
 import React from "react";
-import Header from "./components/Header/Header";
-import Hero from "./components/Hero";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+// Pages
+import HomePage from "./Pages/HomePage/Page";
+import MainDishes from "./Pages/MainDishes/Page";
+import Layout from "./components/Layout";
 
 export default function App() {
   return (
-    <div>
-      <Header />
-      <Hero />
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route element={<Layout />}>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/mandishes" element={<MainDishes />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
