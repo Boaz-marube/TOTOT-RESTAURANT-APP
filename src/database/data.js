@@ -105,19 +105,19 @@ export const desserts = [
 ];
 export const features = [
   {
-    image: mainDish1,
+    image: mainDish2,
     title: "Communal Dining",
     description:
       "Ethiopian cuisine is meant to be shared. Our main dishes are served on a large platter with injera bread, encouraging connection and conversation as everyone eats together.",
   },
   {
-    image: mainDish2,
+    image: mainDish3,
     title: "Authentic Spice Blends",
     description:
       "Our dishes feature handcrafted spice blends like berbere and mitmita, created using traditional methods to deliver the authentic flavors of Ethiopia in every bite.",
   },
   {
-    image: mainDish3,
+    image: mainDish1,
     title: "Traditional Preparation",
     description:
       "Each dish is prepared following time-honored techniques passed down through generations, ensuring an authentic taste experience that respects Ethiopian culinary heritage.",
