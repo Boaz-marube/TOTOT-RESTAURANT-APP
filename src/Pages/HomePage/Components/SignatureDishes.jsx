@@ -32,9 +32,9 @@ export default function SignatureDishes() {
         className="container px-4 py-12 mx-auto transition-colors duration-300"
         id="signature-dishes"
       >
-        <h2 className="mb-2 text-3xl font-bold text-menu-title dark:text-white text-center p-3">
+        <h1 className="p-3 mb-2 text-3xl font-bold text-center lg:text-5xl md:text-4xl text-menu-title dark:text-white font-playfair">
           Signature Dishes
-        </h2>
+        </h1>
 
         <DishFilters currentFilter={filter} setFilter={setFilter} />
 
