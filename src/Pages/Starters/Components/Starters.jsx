@@ -1,15 +1,14 @@
-// components/sections/MainDishes.jsx
 import React from "react";
-import Card from "./Card";
-import { Dishs } from "../../../database/data";
+import Card from "./Card.jsx";
+import { Dishs } from "../../../database/data.js";
 
-const MainDishes = () => {
+const Starters = () => {
   return (
     <section className="bg-menu dark:bg-slate-900 w-full">
       {/* Hero Header */}
       <div className="w-full h-30 p-4 sm:h-40 md:h-52 lg:h-60 bg-dish-color flex items-center justify-center dark:bg-ethiopian-dark">
         <h2 className="text-white text-3xl sm:text-4xl lg:text-5xl text-center">
-          Ma<span className="border-b-4 border-yellow-400 pb-1">in Dis</span>hes
+          St<span className="border-b-4 border-yellow-400 pb-1">art</span>ers
         </h2>
       </div>
 
@@ -25,4 +24,4 @@ const MainDishes = () => {
   );
 };
 
-export default MainDishes;
+export default Starters;

@@ -1,9 +1,9 @@
-import img1 from "../../../assets/dulet.jpg";
-import img2 from "../../../assets/doro wat be enjera.jpg";
-import img3 from "../../../assets/shekla-tibs.webp";
-import img4 from "../../../assets/Finta fento.jpg";
-import img5 from "../../../assets/gomen kitfo.jpg";
-import img6 from "../../../assets/tegabino.jpg";
+import img1 from "../assets/dulet.jpg";
+import img2 from "../assets/doro wat be enjera.jpg";
+import img3 from "../assets/shekla-tibs.webp";
+import img4 from "../assets/Finta fento.jpg";
+import img5 from "../assets/gomen kitfo.jpg";
+import img6 from "../assets/tegabino.jpg";
 export const Dishs = [
   {
     id: 1,
@@ -71,5 +71,27 @@ export const Dishs = [
     catagory: "veg",
     price: "12",
     images: img2,
+  },
+];
+export const drinks = [
+  {
+    id: 1,
+    name: "Totot Kitfo",
+    description: "Classic kitfo with cabbage",
+    catagory: "non-veg",
+    price: " $15",
+    images: img1,
+    featured: true,
+  },
+];
+export const desserts = [
+  {
+    id: 1,
+    name: "Totot Kitfo",
+    description: "Classic kitfo with cabbage",
+    catagory: "non-veg",
+    price: " $15",
+    images: img1,
+    featured: true,
   },
 ];

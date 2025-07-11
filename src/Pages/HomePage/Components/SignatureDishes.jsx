@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import { Dishs } from "./data.js";
+import { Dishs } from "../../../database/data";
 import DishFilters from "./DishFilters";
 import DishCard from "./DishCard";
 import LoadMoreButton from "./LoadMoreButton";
@@ -32,7 +32,7 @@ export default function SignatureDishes() {
         className="container px-4 py-12 mx-auto transition-colors duration-300"
         id="signature-dishes"
       >
-        <h2 class="mb-2 text-3xl font-bold text-menu-title dark:text-white text-center p-3">
+        <h2 className="mb-2 text-3xl font-bold text-menu-title dark:text-white text-center p-3">
           Signature Dishes
         </h2>
 
