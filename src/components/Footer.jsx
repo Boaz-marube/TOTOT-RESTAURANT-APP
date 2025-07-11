@@ -1,7 +1,47 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import { Map } from "../atoms/map";
-
+import logo from "../assets/toto logo.png";
 const Footer = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [currentDay, setCurrentDay] = useState("");
+  const [displayTime, setDisplayTime] = useState("");
+
+  const formatTime = (hours, minutes) => {
+    const period = hours >= 12 ? "PM" : "AM";
+    const displayHours = hours % 12 || 12;
+    return `${displayHours}:${
+      minutes < 10 ? "0" + minutes : minutes
+    } ${period}`;
+  };
+
+  const checkOpenStatus = (day, hour) => {
+    if (day >= "Mon" && day <= "Thu") {
+      return hour >= 11 && hour < 21; // 11AM-9PM
+    } else if (day === "Fri" || day === "Sat") {
+      return hour >= 11 && hour < 22; // 11AM-10PM
+    } else if (day === "Sun") {
+      return hour >= 12 && hour < 20; // 12PM-8PM
+    }
+    return false;
+  };
+
+  const updateTime = () => {
+    const now = new Date();
+    const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+    const day = days[now.getDay()];
+    const hours = now.getHours();
+    const minutes = now.getMinutes();
+
+    setCurrentDay(day);
+    setDisplayTime(formatTime(hours, minutes));
+    setIsOpen(checkOpenStatus(day, hours));
+  };
+
+  useEffect(() => {
+    updateTime();
+    const timer = setInterval(updateTime, 60000);
+    return () => clearInterval(timer);
+  }, []);
   return (
     <footer className="text-white bg-amber-900">
       <div className="container px-6 py-12 mx-auto">
@@ -12,9 +52,11 @@ const Footer = () => {
             {/* Logo */}
             <div className="flex items-center space-x-3">
               <div className="p-2 rounded-lg">
-                <img src="/base/images/toto logo.png" alt="Totot logo" className="h-5 w-7" />
+                <img src={logo} alt="Totot logo" className="h-5 w-7" />
               </div>
-              <h2 className="text-xl font-bold">Totot Restaurant</h2>
+              <h2 className="text-xl font-bold font-playfair">
+                Totot Restaurant
+              </h2>
             </div>
 
             {/* Contact Information */}
@@ -22,21 +64,29 @@ const Footer = () => {
               <div className="flex items-start space-x-3">
                 <i className="fa-solid fa-location-dot text-amber-300 mt-0.5 w-5 h-5"></i>
                 <div>
-                  <p className="leading-relaxed text-amber-100">123 Bole Road, Addis Ababa,</p>
+                  <p className="leading-relaxed text-amber-100">
+                    123 Bole Road, Addis Ababa,
+                  </p>
                   <p className="text-amber-100">Ethiopia</p>
                 </div>
               </div>
 
               <div className="flex items-center space-x-3">
-                <i className="fa-solid fa-phone text-amber-300 w-5 h-5"></i>
-                <a href="tel:+251111234567" className="transition-colors text-amber-100 hover:text-white">
+                <i className="w-5 h-5 fa-solid fa-phone text-amber-300"></i>
+                <a
+                  href="tel:+251111234567"
+                  className="transition-colors text-amber-100 hover:text-white"
+                >
                   +251 11 123 4567
                 </a>
               </div>
 
               <div className="flex items-center space-x-3">
-                <i className="fa-solid fa-envelope text-amber-300 w-5 h-5"></i>
-                <a href="mailto:info@tototrestaurant.com" className="transition-colors text-amber-100 hover:text-white">
+                <i className="w-5 h-5 fa-solid fa-envelope text-amber-300"></i>
+                <a
+                  href="mailto:info@tototrestaurant.com"
+                  className="transition-colors text-amber-100 hover:text-white"
+                >
                   info@tototrestaurant.com
                 </a>
               </div>
@@ -63,29 +113,46 @@ const Footer = () => {
               ))}
             </div>
           </section>
-
-          {/* Hours Section */}
           <section>
-            <h3 className="mb-6 text-xl font-semibold text-amber-100">Hours</h3>
+            <h3 className="mb-6 text-xl font-semibold text-amber-100 font-playfair">
+              Hours
+            </h3>
             <div className="space-y-3">
+              <div className="flex items-center justify-between mb-4">
+                <span className="text-lg font-medium">
+                  {isOpen ? (
+                    <span className="text-green-400">We're Open!</span>
+                  ) : (
+                    <span className="text-red-400">Currently Closed</span>
+                  )}
+                </span>
+              </div>
               <div className="flex items-center justify-between">
                 <span className="text-amber-200">Mon-Thu:</span>
-                <span className="font-medium text-white">11:00 AM - 9:00 PM</span>
+                <span className="font-medium text-white">
+                  11:00 AM - 9:00 PM
+                </span>
               </div>
               <div className="flex items-center justify-between">
                 <span className="text-amber-200">Fri-Sat:</span>
-                <span className="font-medium text-white">11:00 AM - 10:00 PM</span>
+                <span className="font-medium text-white">
+                  11:00 AM - 10:00 PM
+                </span>
               </div>
               <div className="flex items-center justify-between">
                 <span className="text-amber-200">Sun:</span>
-                <span className="font-medium text-white">12:00 PM - 8:00 PM</span>
+                <span className="font-medium text-white">
+                  12:00 PM - 8:00 PM
+                </span>
               </div>
             </div>
           </section>
 
           {/* Quick Links Section */}
           <section>
-            <h3 className="mb-6 text-xl font-semibold text-amber-100">Quick Links</h3>
+            <h3 className="mb-6 text-xl font-semibold text-amber-100 font-playfair">
+              Quick Links
+            </h3>
             <nav>
               <ul className="space-y-3">
                 {[
@@ -108,22 +175,29 @@ const Footer = () => {
           </section>
 
           {/* Find Us Section with Map */}
-            <Map/>
+          <Map />
         </div>
 
         {/* Footer Bottom */}
         <div className="pt-8 mt-12 border-t border-amber-800">
           <div className="flex flex-col items-center justify-between space-y-4 md:flex-row md:space-y-0">
-            <p className="text-sm text-amber-200">&copy; 2025 Totot Restaurant. All rights reserved.</p>
+            <p className="text-sm text-amber-200">
+              &copy; 2025 Totot Restaurant. All rights reserved.
+            </p>
             <nav>
               <ul className="flex space-x-6 text-sm">
-                {["Privacy Policy", "Terms of Service", "Cookie Settings"].map((item, i) => (
-                  <li key={i}>
-                    <a href="#" className="underline transition-colors text-amber-200 hover:text-white">
-                      {item}
-                    </a>
-                  </li>
-                ))}
+                {["Privacy Policy", "Terms of Service", "Cookie Settings"].map(
+                  (item, i) => (
+                    <li key={i}>
+                      <a
+                        href="#"
+                        className="underline transition-colors text-amber-200 hover:text-white"
+                      >
+                        {item}
+                      </a>
+                    </li>
+                  )
+                )}
               </ul>
             </nav>
           </div>
