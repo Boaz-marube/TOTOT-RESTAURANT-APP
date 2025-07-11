@@ -26,7 +26,7 @@ export default function SignatureDishes() {
   };
 
   return (
-    <section className=" bg-menu dark:bg-slate-950">
+    <section id="signature-dish" className=" bg-menu dark:bg-slate-950">
       <section
         ref={sectionRef}
         className="container px-4 py-12 mx-auto transition-colors duration-300"

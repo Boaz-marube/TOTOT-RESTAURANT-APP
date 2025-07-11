@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Map } from "../atoms/map";
 import logo from "../assets/toto logo.png";
+import {Link} from "react-router-dom"
 const Footer = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [currentDay, setCurrentDay] = useState("");
@@ -148,31 +149,33 @@ const Footer = () => {
             </div>
           </section>
 
-          {/* Quick Links Section */}
-          <section>
+
+            {/* Quick Links Section */}
+            <section>
             <h3 className="mb-6 text-xl font-semibold text-amber-100 font-playfair">
-              Quick Links
+                Quick Links
             </h3>
             <nav>
-              <ul className="space-y-3">
+                <ul className="space-y-3">
                 {[
-                  { href: "#hero-section", label: "Home" },
-                  { href: "#signature-dish", label: "Menu" },
-                  { href: "#story", label: "Our Story" },
-                  { href: "#contact", label: "Contact Us" },
+                    { href: "#home", label: "Home" },
+                    { href: "#signature-dish", label: "Menu" },
+                    { href: "#reservation", label: "Reservation" },
+                    { href: "#contact", label: "Contact Us" },
                 ].map((link, i) => (
-                  <li key={i}>
-                    <a
-                      href={link.href}
-                      className="flex items-center space-x-2 transition-colors text-amber-200 hover:text-white"
+                    <li key={i}>
+                    <Link
+                        to={{ pathname: "/", hash: link.href }}
+                        className="flex items-center space-x-2 transition-colors text-amber-200 hover:text-white"
                     >
-                      <span>{link.label}</span>
-                    </a>
-                  </li>
+                        <span>{link.label}</span>
+                    </Link>
+                    </li>
                 ))}
-              </ul>
+                </ul>
             </nav>
-          </section>
+            </section>
+
 
           {/* Find Us Section with Map */}
           <Map />

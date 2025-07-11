@@ -8,7 +8,7 @@ import TextContent from "./TextContent";
 const Hero = () => {
   const Images = [img1, img2, img3, img4];
   return (
-    <div className="max-[1200px]: w-full  h-[calc(100vh-64px)] opacity-2">
+    <div id="home" className="max-[1200px]: w-full  h-[calc(100vh-64px)] opacity-2">
       <ImageSlider imagesUrl={Images} autoSlide={true} />
     </div>
   );
