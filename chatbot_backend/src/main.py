@@ -1,4 +1,5 @@
 from fastapi import FastAPI, HTTPException, status 
+from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 import uvicorn
 import torch # For checking CUDA 
@@ -128,6 +129,18 @@ app = FastAPI(
     description=get_settings().APP_DESCRIPTION,
     version=get_settings().APP_VERSION,
     lifespan=lifespan
+)
+
+# CORS Configuration
+settings = get_settings()
+
+# Configuring CORS middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  
+    allow_credentials=True,
+    allow_methods=["*"],  
+    allow_headers=["*"],  
 )
 
 # --- API Endpoints ---
