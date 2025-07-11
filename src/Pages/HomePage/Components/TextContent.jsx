@@ -36,7 +36,7 @@ export default function TextContent() {
           </p>
           <a
             className="px-8 py-3 text-lg font-bold text-white transition-transform rounded-md bg-gradient-to-r from-ethiopian-red to-ethiopian-dark hover:scale-105"
-            href="./maindishes.html"
+            href="/maindishes"
           >
             Explore Our Menu
           </a>

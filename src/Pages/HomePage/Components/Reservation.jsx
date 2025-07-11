@@ -73,8 +73,9 @@ export default function Reservation() {
 
   return (
     <section className="bg-amber-100 dark:bg-slate-950">
-      <section className="max-w-5xl p-8 mx-auto rounded shadow-lg">
-        <h1 className="mb-6 text-4xl font-bold font-playfair dark:text-white">
+    <div className="dark:bg-slate-900 p-8">
+      <section className="max-w-5xl p-4 mx-auto rounded shadow-lgdark:text-white">
+        <h1 className="mb-4 text-4xl font-bold font-playfair dark:text-white">
           Reservation Form
         </h1>
 
@@ -82,7 +83,7 @@ export default function Reservation() {
           <p className="mb-4 font-medium text-green-700">{successMessage}</p>
         )}
 
-        <form onSubmit={handleReserve} className="p-6 space-y-6 border">
+        <form onSubmit={handleReserve} className="p-2 space-y-0 border rounded">
           {/* Names */}
           <div className="grid gap-4 md:grid-cols-2 dark:text-white">
             <div>
@@ -93,7 +94,7 @@ export default function Reservation() {
                 value={formData.firstName}
                 onChange={handleChange}
                 placeholder="John"
-                className="w-full px-3 py-2 border-2"
+                className="w-full h-8 px-3 py-2 border-2"
                 required
               />
             </div>
@@ -105,7 +106,7 @@ export default function Reservation() {
                 value={formData.secondName}
                 onChange={handleChange}
                 placeholder="Doe"
-                className="w-full px-3 py-2 border-2"
+                className="w-full h-8 px-3 py-2 border-2"
                 required
               />
             </div>
@@ -121,7 +122,7 @@ export default function Reservation() {
                 value={formData.email}
                 onChange={handleChange}
                 placeholder="Email address"
-                className="w-full px-3 py-2 border"
+                className="w-full h-8 px-3 py-2 border"
                 required
               />
             </div>
@@ -133,7 +134,7 @@ export default function Reservation() {
                 value={formData.phoneNumber}
                 onChange={handleChange}
                 placeholder="+254 123456789"
-                className="w-full px-3 py-2 border"
+                className="w-full h-8 px-3 py-2 border"
               />
             </div>
           </div>
@@ -144,7 +145,7 @@ export default function Reservation() {
             <select
               value={guests}
               onChange={(e) => setGuests(e.target.value)}
-              className="w-full px-3 py-2 border"
+              className="w-full h-10 px-3 py-2 border"
               required
             >
               <option value="">Select an option</option>
@@ -174,7 +175,7 @@ export default function Reservation() {
             <DatePicker
               selected={date}
               onChange={(d) => setDate(d)}
-              className="w-full px-3 py-2 border"
+              className="w-full h-8 h px-3 py-2 border"
               dateFormat="MM/dd/yyyy"
               minDate={new Date()}
               required
@@ -195,40 +196,45 @@ export default function Reservation() {
               onChange={handleChange}
               maxLength={500}
               placeholder="eg. Dietary restrictions, preferred seating..."
-              className="w-full px-3 py-2 border h-28 "
+              className="w-full px-3 py-2 border h-20 "
             />
           </div>
 
           <div className="text-right">
             <button
               type="submit"
-              className="px-6 py-3 text-white transition rounded shadow bg-gradient-to-r from-ethiopian-red to-ethiopian-dark hover:scale-105"
+              className="px-3 py-2 text-white transition rounded shadow bg-gradient-to-r from-ethiopian-red to-ethiopian-dark hover:scale-105"
             >
               Reserve
             </button>
           </div>
         </form>
 
-        {/* Reservation List */}
-        {reservations.length > 0 && (
-          <div className="mt-8">
-            <h2 className="mb-4 text-2xl font-semibold">
+     {reservations.length > 0 && (
+    <div className="mt-8">
+      <h2 className="mb-4 text-2xl font-semibold">
               Previous Reservations
             </h2>
-            <ul className="space-y-2">
-              {reservations.map((r, i) => (
-                <li key={i} className="p-3 bg-white border rounded">
-                  <strong>
-                    {r.firstName} {r.secondName}
-                  </strong>{" "}
-                  reserved for <strong>{r.guests}</strong> guests on{" "}
-                  <strong>{r.date}</strong>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
+      
+    <div className="overflow-y-auto max-h-44 pr-2">  
+      <ul className="space-y-2 dark:text-black">
+          {reservations.map((r, i) => (
+            <li key={i} className="p-3 bg-white border rounded">
+              <strong>
+                {r.firstName} {r.secondName}
+              </strong>{" "}
+              reserved for <strong>{r.guests}</strong> guests on{" "}
+              <strong>{r.date}</strong>
+            </li>
+          ))}
+        </ul>
+      </div>
+    
+  </div>
+  )}
       </section>
+
     </section>
+  </div>
   );
 }
