@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { Map } from "../atoms/map";
 import logo from "../assets/toto logo.png";
-import {Link} from "react-router-dom"
+import { Link } from "react-router-dom";
+import { Phone, Locate, Mail } from "lucide-react";
 const Footer = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [currentDay, setCurrentDay] = useState("");
@@ -63,7 +64,7 @@ const Footer = () => {
             {/* Contact Information */}
             <address className="space-y-3 not-italic">
               <div className="flex items-start space-x-3">
-                <i className="fa-solid fa-location-dot text-amber-300 mt-0.5 w-5 h-5"></i>
+                <Locate className="w-5 h-5 fa-solid fa-envelope text-amber-300" />
                 <div>
                   <p className="leading-relaxed text-amber-100">
                     123 Bole Road, Addis Ababa,
@@ -73,7 +74,7 @@ const Footer = () => {
               </div>
 
               <div className="flex items-center space-x-3">
-                <i className="w-5 h-5 fa-solid fa-phone text-amber-300"></i>
+                <Phone className="w-5 h-5 fa-solid fa-envelope text-amber-300" />
                 <a
                   href="tel:+251111234567"
                   className="transition-colors text-amber-100 hover:text-white"
@@ -83,7 +84,7 @@ const Footer = () => {
               </div>
 
               <div className="flex items-center space-x-3">
-                <i className="w-5 h-5 fa-solid fa-envelope text-amber-300"></i>
+                <Mail className="w-5 h-5 fa-solid fa-envelope text-amber-300" />
                 <a
                   href="mailto:info@tototrestaurant.com"
                   className="transition-colors text-amber-100 hover:text-white"
@@ -149,33 +150,31 @@ const Footer = () => {
             </div>
           </section>
 
-
-            {/* Quick Links Section */}
-            <section>
+          {/* Quick Links Section */}
+          <section>
             <h3 className="mb-6 text-xl font-semibold text-amber-100 font-playfair">
-                Quick Links
+              Quick Links
             </h3>
             <nav>
-                <ul className="space-y-3">
+              <ul className="space-y-3">
                 {[
-                    { href: "#home", label: "Home" },
-                    { href: "#signature-dish", label: "Menu" },
-                    { href: "#reservation", label: "Reservation" },
-                    { href: "#contact", label: "Contact Us" },
+                  { href: "#home", label: "Home" },
+                  { href: "#signature-dish", label: "Menu" },
+                  { href: "#reservation", label: "Reservation" },
+                  { href: "#contact", label: "Contact Us" },
                 ].map((link, i) => (
-                    <li key={i}>
+                  <li key={i}>
                     <Link
-                        to={{ pathname: "/", hash: link.href }}
-                        className="flex items-center space-x-2 transition-colors text-amber-200 hover:text-white"
+                      to={{ pathname: "/", hash: link.href }}
+                      className="flex items-center space-x-2 transition-colors text-amber-200 hover:text-white"
                     >
-                        <span>{link.label}</span>
+                      <span>{link.label}</span>
                     </Link>
-                    </li>
+                  </li>
                 ))}
-                </ul>
+              </ul>
             </nav>
-            </section>
-
+          </section>
 
           {/* Find Us Section with Map */}
           <Map />
