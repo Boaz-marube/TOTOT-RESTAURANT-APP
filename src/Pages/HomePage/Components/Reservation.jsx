@@ -84,7 +84,7 @@ export default function Reservation() {
 
         <form onSubmit={handleReserve} className="p-2 space-y-0 border rounded">
           {/* Names */}
-          <div className="grid gap-4 md:grid-cols-2">
+          <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-2">
             <div>
               <label className="block mb-1">First Name</label>
               <input
@@ -112,7 +112,7 @@ export default function Reservation() {
           </div>
 
           {/* Email & Phone */}
-          <div className="grid gap-4 md:grid-cols-2">
+          <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-2">
             <div>
               <label className="block mb-1">Email</label>
               <input
@@ -144,7 +144,7 @@ export default function Reservation() {
             <select
               value={guests}
               onChange={(e) => setGuests(e.target.value)}
-              className="w-full h-10 px-3 py-2 border"
+              className="w-full dark:text-black h-10 px-3 py-2 border"
               required
             >
               <option value="">Select an option</option>
@@ -174,7 +174,7 @@ export default function Reservation() {
             <DatePicker
               selected={date}
               onChange={(d) => setDate(d)}
-              className="w-full h-8 px-3 py-2 border h"
+              className="w-full dark:text-black h-8 px-3 py-2 border h"
               dateFormat="MM/dd/yyyy"
               minDate={new Date()}
               required
