@@ -6,7 +6,8 @@ from transformers import AutoTokenizer, AutoModelForCausalLM, pipeline
 from langchain_community.llms import HuggingFacePipeline 
 import os
 import logging
-
+from pydantic import BaseModel, Field
+from typing import List, Literal
 import sys 
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
@@ -159,13 +160,19 @@ async def health_check():
     return status_detail
 
 #  Pydantic models for chat endpoint
+class ChatMessage(BaseModel):
+    role: Literal["user", "assistant"] = Field(..., description="Role of the speaker (user or assistant).")
+    content: str = Field(..., description="Content of the message.")
+
 class ChatRequest(BaseModel):
-    query: str = Field(..., example="Hello, tell me about Totot Restaurant.", description="The user's query to the chatbot.")
+    query: str = Field(..., example="Hello, tell me about Totot Restaurant.", description="The user's current query to the chatbot.")
+    # This line adds the 'chat_history' field.
+    chat_history: List[ChatMessage] = Field(default_factory=list, description="Previous conversation turns.")
 
 class ChatResponse(BaseModel):
     response: str
-    source_documents: list = Field(default_factory=list, description="list of source documents used for the response (if RAG is active).")
-
+    source_documents: List[dict] = Field(default_factory=list, description="List of source documents (content and metadata) used for the response.")
+    
 @app.post("/chat", response_model=ChatResponse)
 async def chat_endpoint(request: ChatRequest):
     settings = get_settings()
