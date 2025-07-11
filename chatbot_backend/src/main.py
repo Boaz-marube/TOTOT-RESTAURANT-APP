@@ -7,7 +7,7 @@ from langchain_community.llms import HuggingFacePipeline
 import os
 import logging
 from pydantic import BaseModel, Field
-from typing import List, Literal
+from typing import List, Literal, Dict, Any
 import sys 
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
@@ -86,7 +86,7 @@ async def lifespan(app: FastAPI):
             top_p=settings.TOP_P,                   
             eos_token_id=tokenizer.eos_token_id,    
             pad_token_id=tokenizer.pad_token_id,  
-            return_full_text=False # Crucial for getting only generated text
+            return_full_text=False 
         )
 
         # Wrapping with LangChain's HuggingFacePipeline 
@@ -95,7 +95,7 @@ async def lifespan(app: FastAPI):
 
         #  Initializing RAGService 
         rag_service = RAGService() # Create an instance
-        await rag_service.initialize(llm_pipeline, settings) # The 'await' is here, correctly inside async function
+        await rag_service.initialize(llm_pipeline, settings) 
 
         yield # This 'yield' statement is where the application runs.
               # Code below 'yield' will execute when the application shuts down.
@@ -156,6 +156,8 @@ async def health_check():
 
     if rag_service and rag_service.is_ready(): # Checking if RAGService is ready
         status_detail["rag_status"] = "loaded"
+        # Add RAG statistics
+        status_detail["rag_stats"] = rag_service.get_retrieval_stats()
     
     return status_detail
 
@@ -166,13 +168,40 @@ class ChatMessage(BaseModel):
 
 class ChatRequest(BaseModel):
     query: str = Field(..., example="Hello, tell me about Totot Restaurant.", description="The user's current query to the chatbot.")
-    # This line adds the 'chat_history' field.
     chat_history: List[ChatMessage] = Field(default_factory=list, description="Previous conversation turns.")
 
 class ChatResponse(BaseModel):
     response: str
-    source_documents: List[dict] = Field(default_factory=list, description="List of source documents (content and metadata) used for the response.")
+    source_documents: List[Dict[str, Any]] = Field(default_factory=list, description="List of source documents (content and metadata) used for the response.")
+    rag_process: Dict[str, Any] = Field(default_factory=dict, description="Information about the RAG process for transparency.")
+
+# New endpoint for testing RAG retrieval
+@app.post("/test-retrieval")
+async def test_retrieval_endpoint(query: str, k: int = 3):
+    """Test endpoint to see what documents are retrieved for a query."""
+    settings = get_settings()
     
+    if not rag_service or not rag_service.is_ready():
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail="RAG service is not ready."
+        )
+    
+    try:
+        results = await rag_service.test_retrieval(query, k)
+        return {
+            "query": query,
+            "retrieved_documents": results,
+            "count": len(results),
+            "rag_stats": rag_service.get_retrieval_stats()
+        }
+    except Exception as e:
+        logger.error(f"[{settings.APP_NAME}] Error in test retrieval: {e}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Error during retrieval test: {e}"
+        )
+
 @app.post("/chat", response_model=ChatResponse)
 async def chat_endpoint(request: ChatRequest):
     settings = get_settings()
@@ -181,13 +210,25 @@ async def chat_endpoint(request: ChatRequest):
 
     if rag_service and rag_service.is_ready(): # Checking if RAGService is ready
         try:
-            # Calling the process_query method on the RAGService instance
-            response = await rag_service.process_query(user_query)
-
-            source_docs_info = ["RAG enabled and used." if rag_service.is_ready() else "RAG service not fully ready."] 
+            # Enhanced RAG processing with source transparency
+            response, source_documents = await rag_service.process_query(user_query)
             
-            logger.info(f"[{settings.APP_NAME}] RAG response generated.")
-            return ChatResponse(response=response, source_documents=source_docs_info)
+            # Added process information for transparency
+            rag_process = {
+                "method": "RAG",
+                "documents_retrieved": len(source_documents),
+                "embedding_model": "all-MiniLM-L6-v2",
+                "vector_store": "Pinecone",
+                "retrieval_stats": rag_service.get_retrieval_stats()
+            }
+            
+            logger.info(f"[{settings.APP_NAME}] RAG response generated with {len(source_documents)} source documents.")
+            
+            return ChatResponse(
+                response=response, 
+                source_documents=source_documents,
+                rag_process=rag_process
+            )
 
         except Exception as e:
             logger.error(f"[{settings.APP_NAME}] Error during RAG chat processing via RAGService: {e}", exc_info=True)
@@ -213,8 +254,31 @@ async def chat_endpoint(request: ChatRequest):
             if not ai_response_content:
                 ai_response_content = "I'm sorry, I couldn't generate a response. Can you please rephrase?"
 
+            # Fallback source documents
+            source_docs_info = [
+                {
+                    "rank": 1,
+                    "content": "Direct LLM response - no document retrieval performed.",
+                    "metadata": {
+                        "source": "Direct LLM",
+                        "method": "generation_only",
+                        "status": "fallback"
+                    }
+                }
+            ]
+            
+            rag_process = {
+                "method": "Direct LLM",
+                "documents_retrieved": 0,
+                "reason": "RAG service not available"
+            }
+
             logger.info(f"[{settings.APP_NAME}] Direct LLM response generated.")
-            return ChatResponse(response=ai_response_content, source_documents=["RAG not available, direct LLM used."])
+            return ChatResponse(
+                response=ai_response_content, 
+                source_documents=source_docs_info,
+                rag_process=rag_process
+            )
 
         except Exception as e:
             logger.error(f"[{settings.APP_NAME}] Error during direct LLM chat processing: {e}", exc_info=True)
