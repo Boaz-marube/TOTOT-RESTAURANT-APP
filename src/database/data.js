@@ -4,6 +4,11 @@ import img3 from "../assets/shekla-tibs.webp";
 import img4 from "../assets/Finta fento.jpg";
 import img5 from "../assets/gomen kitfo.jpg";
 import img6 from "../assets/tegabino.jpg";
+import img7 from "../assets/chicken stew.jpg";
+import img8 from "../assets/cheese-kitfo.jpg";
+import img10 from "../assets/Vegetarian/fosolia.jpg";
+import img11 from "../assets/Vegetarian/kik alicha.jpg";
+import img9 from "../assets/injera platter.webp";
 import mainDish1 from "../assets/main-dish1.png";
 import mainDish2 from "../assets/main-dish2.png";
 import mainDish3 from "../assets/main-dish3.png";
@@ -15,8 +20,8 @@ import mainDish9 from "../assets/mainDish6.png";
 export const Dishs = [
   {
     id: 1,
-    name: "Totot Kitfo",
-    description: "Classic kitfo with cabbage",
+    name: "Dulet",
+    description: "Chopped Fried Beef",
     catagory: "non-veg",
     price: " $15",
     images: img1,
@@ -24,17 +29,17 @@ export const Dishs = [
   },
   {
     id: 2,
-    name: "Dulet",
-    description: "Chopped Fried Beef",
-    catagory: "non-veg",
+    name: "Totot Kitfo",
+    description: " Classic raw meet with spaicy",
+    catagory: "chef-special",
     price: " $18",
-    images: img2,
+    images: mainDish8,
     featured: true,
   },
   {
     id: 3,
-    name: "Finta Fento",
-    description: " Spicy kitfo sauce with cheese",
+    name: "Shekla Tibs",
+    description: "Spicy lamb stew",
     catagory: "non-veg",
     price: "$16",
     images: img3,
@@ -42,43 +47,67 @@ export const Dishs = [
   },
   {
     id: 4,
-    name: " Injera Platter",
-    description: "Fresh Vegetarian variety platter",
-    catagory: "veg",
-    price: "40",
+    name: "Cheese Kitfo",
+    description: "Classic kitfo with ayib(cheese)",
+    catagory: "non-veg",
+    price: "$15",
     images: img4,
   },
   {
     id: 5,
-    name: "Totot Kitfo",
+    name: "Finta Finto",
     description: " Spicy kitfo sauce with cheese",
-    catagory: "veg",
-    price: "40",
+    catagory: "chef-special",
+    price: "$40",
     images: img5,
   },
   {
     id: 6,
-    name: "Totot Kitfo",
-    description: " Spicy kitfo sauce with cheese",
+    name: "Tegabino",
+    description: "Fasting stew(vegetarian)",
     catagory: "veg",
-    price: "40",
+    price: "$23",
     images: img6,
   },
   {
     id: 7,
-    name: "Totot Kitfo",
-    description: " Spicy kitfo sauce with cheese",
-    catagory: "veg",
-    price: "12",
-    images: img1,
+    name: "Doro wat",
+    description: "Spicy Chicken stew",
+    catagory: "chef-special",
+    price: "$23",
+    images: img7,
   },
   {
     id: 8,
-    name: "Totot Kitfo",
-    description: " Spicy kitfo sauce with cheese",
+    name: "Gomen Kitfo",
+    description: "Classic kitfo with cabbage",
+    catagory: "non-veg",
+    price: "$14",
+    images: img8,
+  },
+  {
+    id: 9,
+    name: "Injera Platter",
+    description: "Fresh Vegetarian variety platter",
     catagory: "veg",
-    price: "12",
-    images: img2,
+    price: "$18",
+    images: img9,
+  },
+  {
+    id: 10,
+    name: "Fosolia",
+    description: "Fresh Vegetarian and fasting ",
+    catagory: "veg",
+    price: "$22",
+    images: img10,
+  },
+  {
+    id: 11,
+    name: "kik alicha",
+    description: "Fasting food",
+    catagory: "veg",
+    price: "$12",
+    images: img11,
   },
 ];
 export const drinks = [

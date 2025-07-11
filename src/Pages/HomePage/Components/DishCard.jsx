@@ -21,7 +21,7 @@ export default function DishCard({ dish }) {
 
       {/* Dish Info */}
       <div className="p-5">
-        <h3 className="text-xl font-bold text-gray-800 dark:text-white">
+        <h3 className="text-xl font-bold text-gray-800 dark:text-white font-playfair">
           {dish.name}
         </h3>
       </div>
@@ -41,7 +41,7 @@ export default function DishCard({ dish }) {
           borderBottomLeftRadius: "1rem",
         }}
       >
-        <p className="mb-1">{dish.descrption}</p>
+        <p className="mb-1">{dish.description}</p>
         <p className="font-bold">{dish.price}</p>
       </div>
     </div>
