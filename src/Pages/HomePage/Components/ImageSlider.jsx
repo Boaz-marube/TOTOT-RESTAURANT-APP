@@ -43,13 +43,13 @@ const ImageSlider = ({
       </div>
       <TextContent />
       <button
-        className="absolute top-0 bottom-0 left-0 block p-6 mt-2 cursor-pointer sm:p-2"
+        className="absolute top-0 bottom-0 left-0 block p-2 mt-2 cursor-pointer lg:p-6 sm:p-2"
         onClick={showPrevImage}
       >
         <ArrowBigLeft className="w-8 h-8 text-white fill-black" />
       </button>
       <button
-        className="absolute top-0 bottom-0 right-0 block p-6 mt-2 cursor-pointer sm:p-2"
+        className="absolute top-0 bottom-0 right-0 block p-2 mt-2 cursor-pointer lg:p-6 sm:p-2 "
         onClick={showNextImage}
       >
         <ArrowBigRight className="w-8 h-8 text-white fill-black" />
