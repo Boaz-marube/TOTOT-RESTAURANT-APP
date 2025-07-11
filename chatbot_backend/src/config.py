@@ -3,30 +3,31 @@ from functools import lru_cache
 import os
 
 class Settings(BaseSettings):
-    model_config = SettingsConfigDict(
-        env_file='.env',
-        extra='ignore',       
-        case_sensitive=True   
-    )
+    model_config = SettingsConfigDict(case_sensitive=True, env_file=".env", extra="ignore")
 
-    # General Application Settings
-    APP_NAME: str = "Totot Restaurant Chatbot Backend"
-    APP_DESCRIPTION: str = "AI Assistant for the restaurant website, powered by FastAPI, LangChain, and Llama 2."
-    APP_VERSION: str = "0.1.0"
-    HOST: str = "0.0.0.0" 
-    PORT: int = 8000     
+    APP_NAME: str = "Totot Restaurant Chatbot"
+    APP_DESCRIPTION: str = "AI-powered chatbot for Totot Traditional Restaurant"
+    APP_VERSION: str = "0.0.1"
+    HOST: str = "0.0.0.0"
+    PORT: int = 8000
 
-    HF_TOKEN: str
-    LLAMA_MODEL_ID: str = "meta-llama/Llama-2-7b-chat-hf"
+    # LLM settings
+    HF_TOKEN: str 
+    LLAMA_MODEL_ID: str = "TinyLlama/TinyLlama-1.1B-Chat-v1.0"
+    TOP_P: float = 0.9
 
-    # LLM Generation Parameters (these are default settings for Llama 2 responses)
+    # Pinecone settings 
+    PINECONE_API_KEY: str
+    PINECONE_ENVIRONMENT: str
+    PINECONE_INDEX_NAME: str
+    # LLM Generation Parameters
     MAX_NEW_TOKENS: int = 512
     TEMPERATURE: float = 0.7  
     DO_SAMPLE: bool = True    
     TOP_K: int = 50         
     TOP_P: float = 0.95       
 
-@lru_cache() # This is a Python decorator that caches the result of the function.
+@lru_cache() 
              
 def get_settings():
     return Settings()

@@ -7,31 +7,38 @@ from langchain_community.llms import HuggingFacePipeline
 import os
 import logging
 
+import sys 
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+
+
+from src.rag_service import RAGService
 from src.config import get_settings 
+from pydantic import BaseModel, Field 
 
 # Configuring logging for better visibility during startup/shutdown
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
-# Global variable to hold loaded LLM pipeline
-# I use 'None' first because it's loaded during application startup.
-llm_pipeline: HuggingFacePipeline = None
+# Global variable to hold loaded LLM pipeline and RAG service instance
+llm_pipeline = None
+rag_service: RAGService = None
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    global llm_pipeline  
+    global llm_pipeline, rag_service  
     
     settings = get_settings()
-    logger.info(f"[{settings.APP_NAME}] Starting up and loading AI models...")
+    logger.info(f"[{settings.APP_NAME}] Starting up: Initializing LLM and RAG components...")
 
     try:
+        #  Initializing LLM Pipeline 
         # Verifying Hugging Face Token
         if not settings.HF_TOKEN:
-            logger.warning(f"[{settings.APP_NAME}] HF-TOKEN not found. Skipping model loading. only /docs and static endpoints will work.")
-            yield
+            logger.warning(f"[{settings.APP_NAME}] HF_TOKEN not found. Skipping model loading. Only /docs and static endpoints will work.")
+            yield # Allows app to run with limited functionality
             return
 
-        #  Load the Tokenizer
+        # Loading the Tokenizer
         logger.info(f"[{settings.APP_NAME}] Loading tokenizer for {settings.LLAMA_MODEL_ID}...")
         tokenizer = AutoTokenizer.from_pretrained(
             settings.LLAMA_MODEL_ID,
@@ -40,16 +47,15 @@ async def lifespan(app: FastAPI):
         if tokenizer.pad_token is None:
             tokenizer.pad_token = tokenizer.eos_token
 
-        # Load LLM Model 
-        logger.info(f"[{settings.APP_NAME}] Loading model {settings.LLAMA_MODEL_ID}. This may take a while and consume significant RAM/VRAM...")
-
         # Determining if a CUDA-enabled GPU is available for faster processing
         device = "cuda" if torch.cuda.is_available() else "cpu"
         logger.info(f"[{settings.APP_NAME}]✔ Model will run on device: {device.upper()}")
-        logger.info(f"[{settings.APP_NAME}]✔Loading model ID: {settings.LLAMA_MODEL_ID}")
+        logger.info(f"[{settings.APP_NAME}]✔ Loading model ID: {settings.LLAMA_MODEL_ID}")
+        
         # Using float16 for CUDA for reduced memory usage and faster inference if GPU supports it
         torch_dtype = torch.float16 if device == "cuda" else torch.float32
 
+        # Consistent variable name: model
         model = AutoModelForCausalLM.from_pretrained(
             settings.LLAMA_MODEL_ID,
             token=settings.HF_TOKEN,     # Using the HF_TOKEN for model access
@@ -68,7 +74,7 @@ async def lifespan(app: FastAPI):
 
         # Creating Hugging Face Pipeline 
         logger.info(f"[{settings.APP_NAME}] Creating HuggingFacePipeline for LangChain integration...")
-        pipe = pipeline(
+        pipe_instance = pipeline(
             "text-generation",
             model=model,
             tokenizer=tokenizer,
@@ -79,37 +85,40 @@ async def lifespan(app: FastAPI):
             top_p=settings.TOP_P,                   
             eos_token_id=tokenizer.eos_token_id,    
             pad_token_id=tokenizer.pad_token_id,  
+            return_full_text=False # Crucial for getting only generated text
         )
 
-        #  Wrapping with LangChain's HuggingFacePipeline 
-        # This makes my Hugging Face pipeline compatible with LangChain's components.
-        llm_pipeline = HuggingFacePipeline(pipeline=pipe)
+        # Wrapping with LangChain's HuggingFacePipeline 
+        llm_pipeline = HuggingFacePipeline(pipeline=pipe_instance)
         logger.info(f"[{settings.APP_NAME}] LLM pipeline loaded successfully!")
 
+        #  Initializing RAGService 
+        rag_service = RAGService() # Create an instance
+        await rag_service.initialize(llm_pipeline, settings) # The 'await' is here, correctly inside async function
+
         yield # This 'yield' statement is where the application runs.
-              # Code below will execute when the application shuts down.
+              # Code below 'yield' will execute when the application shuts down.
 
     except Exception as e:
-        logger.error(f"[{settings.APP_NAME}] ERROR: Failed to load LLM pipeline during startup: {e}", exc_info=True)
-        # If model loading fails, I raise a RuntimeError to prevent the app from starting incorrectly.
-        raise RuntimeError(f"Failed to load LLM pipeline: {e}. Check HF_TOKEN, model ID, and system resources.")
+        logger.error(f"[{settings.APP_NAME}] ERROR: Failed to initialize application components during startup: {e}", exc_info=True)
+        # If model loading or RAG setup fails, raise a RuntimeError to prevent the app from starting incorrectly.
+        raise RuntimeError(f"Failed to initialize application components: {e}. Check HF_TOKEN, model ID, Pinecone config, and system resources.")
 
     finally:
         # Clean up on shutdown
         logger.info(f"[{settings.APP_NAME}] Shutting down and unloading AI models...")
-        llm_pipeline = None  
-
-        # Explicitly deleting model and tokenizer to free up memory 
-        if 'model' in locals(): # Checking if model was successfully loaded
+        llm_pipeline = None
+        if rag_service:
+            rag_service = None
+        if 'model' in locals():
             del model
-        if 'tokenizer' in locals(): # Checking if tokenizer was successfully loaded
-            del tokenizer
-
+        if 'tokenizer' in locals():
+            del tokenizer  
         # Clearing CUDA cache if GPU was used
         if torch.cuda.is_available():
             torch.cuda.empty_cache()
 
-        logger.info(f"[{settings.APP_NAME}] LLM pipeline unloaded.")
+        logger.info(f"[{settings.APP_NAME}] AI components unloaded.")
 
 
 # Initializing FastAPI application 
@@ -123,77 +132,94 @@ app = FastAPI(
 # --- API Endpoints ---
 
 @app.get("/")
-async def read_root():
-    """
-    Root endpoint providing basic information about the API.
-    """
+async def root():
     settings = get_settings()
     return {"message": f"Welcome to {settings.APP_NAME}! Access /docs for API documentation."}
 
+
 @app.get("/health")
 async def health_check():
-    """
-    Health check endpoint to verify API status and LLM model loading.
-    """
     settings = get_settings()
-    # Check if the llm_pipeline is loaded
-    if llm_pipeline is None:
-        # If llm_pipeline is None, it means the model failed to load or is not ready
+    status_detail = {
+        "status": "ok",
+        "message": "API is healthy",
+        "app_version": settings.APP_VERSION,
+        "llm_status": "not_loaded",
+        "rag_status": "not_loaded"
+    }
+
+    if llm_pipeline is not None:
+        status_detail["llm_status"] = "loaded"
+    else:
         raise HTTPException(status_code=status.HTTP_503_SERVICE_UNAVAILABLE, detail="LLM service is not ready or failed to load.")
 
-    return {"status": "ok", "message": "API is healthy", "app_version": settings.APP_VERSION, "llm_status": "loaded"}
+    if rag_service and rag_service.is_ready(): # Checking if RAGService is ready
+        status_detail["rag_status"] = "loaded"
+    
+    return status_detail
 
-#  A simple chat endpoint to test the LLM 
-from pydantic import BaseModel, Field 
-
+#  Pydantic models for chat endpoint
 class ChatRequest(BaseModel):
-    user_message: str = Field(..., example="Hello, tell me about Totot Restaurant.", description="The user's message to the chatbot.")
+    query: str = Field(..., example="Hello, tell me about Totot Restaurant.", description="The user's query to the chatbot.")
 
 class ChatResponse(BaseModel):
     response: str
+    source_documents: list = Field(default_factory=list, description="list of source documents used for the response (if RAG is active).")
 
 @app.post("/chat", response_model=ChatResponse)
 async def chat_endpoint(request: ChatRequest):
-    """
-    Simple chat endpoint to test Llama 2 inference.
-    This will be enhanced significantly with RAG and memory.
-    """
-    # Ensuring LLM is loaded before attempting to use it
-    if llm_pipeline is None:
-        raise HTTPException(status_code=status.HTTP_503_SERVICE_UNAVAILABLE, detail="Chat service is temporarily unavailable. LLM model not loaded.")
+    settings = get_settings()
+    user_query = request.query
+    logger.info(f"[{settings.APP_NAME}] Received query: '{user_query}'")
 
-    user_message = request.user_message
-    logger.info(f"Received chat message: '{user_message}'")
+    if rag_service and rag_service.is_ready(): # Checking if RAGService is ready
+        try:
+            # Calling the process_query method on the RAGService instance
+            response = await rag_service.process_query(user_query)
 
-    try:
-        llama2_prompt = (
-    f"<|system|>\nYou are a helpful AI assistant for Totot Restaurant. "
-    f"Only provide information about Totot Restaurant. If asked about other topics, "
-    f"politely state that you are only programmed to assist with restaurant-related queries.</s>\n"
-    f"<|user|>\n{user_message}</s>\n"
-    f"<|assistant|>"
-)
+            source_docs_info = ["RAG enabled and used." if rag_service.is_ready() else "RAG service not fully ready."] 
+            
+            logger.info(f"[{settings.APP_NAME}] RAG response generated.")
+            return ChatResponse(response=response, source_documents=source_docs_info)
 
-        # llm_pipeline.invoke() sends the text to the HuggingFace model
-        raw_ai_response_content = llm_pipeline.invoke(llama2_prompt)
-        logger.info(f"Raw LLM response: '{raw_ai_response_content}'")
-        #strip whitespace
-        ai_response_content = raw_ai_response_content.strip()
-        for artifact in ["</s", "<|endoftext|>", "<pad>"]:
-            ai_response_content = ai_response_content.replace(artifact,"")
+        except Exception as e:
+            logger.error(f"[{settings.APP_NAME}] Error during RAG chat processing via RAGService: {e}", exc_info=True)
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail=f"An error occurred during RAG chat processing: {e}. Please try again."
+            )
+    elif llm_pipeline: # Fallback to direct LLM chat if RAG service is not available
+        logger.warning(f"[{settings.APP_NAME}] RAG service not available. Falling back to direct LLM chat for query: '{user_query}'")
+        try:
+            llm_prompt = (
+                f"<|system|>\nYou are a helpful AI assistant for Totot Restaurant. "
+                f"Only provide information about Totot Restaurant. If asked about other topics, "
+                f"politely state that you are only programmed to assist with restaurant-related queries.</s>\n"
+                f"<|user|>\n{user_query}</s>\n"
+                f"<|assistant|>"
+            )
+            raw_ai_response_content = llm_pipeline.invoke(llm_prompt)
+            ai_response_content = raw_ai_response_content.strip()
+            for artifact in ["</s", "<|endoftext|>", "<pad>"]:
+                ai_response_content = ai_response_content.replace(artifact,"")
 
-        if not ai_response_content: # In case the model returns nothing meaningful after stripping
-             ai_response_content = "I'm sorry, I couldn't generate a response. Can you please rephrase?"
+            if not ai_response_content:
+                ai_response_content = "I'm sorry, I couldn't generate a response. Can you please rephrase?"
 
+            logger.info(f"[{settings.APP_NAME}] Direct LLM response generated.")
+            return ChatResponse(response=ai_response_content, source_documents=["RAG not available, direct LLM used."])
 
-        logger.info(f"Cleaned AI response: '{ai_response_content}'")
-        return ChatResponse(response=ai_response_content)
-
-    except Exception as e:
-        logger.error(f"Error during chat inference: {e}", exc_info=True)
+        except Exception as e:
+            logger.error(f"[{settings.APP_NAME}] Error during direct LLM chat processing: {e}", exc_info=True)
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail=f"An error occurred during direct LLM chat processing: {e}. Please try again."
+            )
+    else: # Neither RAG nor direct LLM is available
+        logger.error(f"[{settings.APP_NAME}] No LLM or RAG components loaded. Cannot process query: '{user_query}'")
         raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=f"An error occurred during chat processing: {e}. Please try again."
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail="Chat service is temporarily unavailable. LLM and RAG models not loaded."
         )
 
 if __name__ == "__main__":
