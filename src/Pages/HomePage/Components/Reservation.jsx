@@ -72,16 +72,18 @@ export default function Reservation() {
   };
 
   return (
-    <section className="max-w-5xl mx-auto p-8 bg-amber-100 rounded shadow dark:bg-slate-600 ">
-      <h1 className="text-4xl font-bold mb-6 font-playfair">Reservation Form</h1>
+    <section className="max-w-5xl p-8 mx-auto rounded shadow bg-amber-100 dark:bg-slate-600 ">
+      <h1 className="mb-6 text-4xl font-bold font-playfair">
+        Reservation Form
+      </h1>
 
       {successMessage && (
-        <p className="mb-4 text-green-700 font-medium">{successMessage}</p>
+        <p className="mb-4 font-medium text-green-700">{successMessage}</p>
       )}
 
-      <form onSubmit={handleReserve} className="border p-6 space-y-6">
+      <form onSubmit={handleReserve} className="p-6 space-y-6 border">
         {/* Names */}
-        <div className="grid md:grid-cols-2 gap-4">
+        <div className="grid gap-4 md:grid-cols-2">
           <div>
             <label className="block mb-1">First Name</label>
             <input
@@ -90,7 +92,7 @@ export default function Reservation() {
               value={formData.firstName}
               onChange={handleChange}
               placeholder="John"
-              className="w-full border px-3 py-2"
+              className="w-full px-3 py-2 border"
               required
             />
           </div>
@@ -102,14 +104,14 @@ export default function Reservation() {
               value={formData.secondName}
               onChange={handleChange}
               placeholder="Doe"
-              className="w-full border px-3 py-2"
+              className="w-full px-3 py-2 border"
               required
             />
           </div>
         </div>
 
         {/* Email & Phone */}
-        <div className="grid md:grid-cols-2 gap-4">
+        <div className="grid gap-4 md:grid-cols-2">
           <div>
             <label className="block mb-1">Email</label>
             <input
@@ -118,7 +120,7 @@ export default function Reservation() {
               value={formData.email}
               onChange={handleChange}
               placeholder="Email address"
-              className="w-full border px-3 py-2"
+              className="w-full px-3 py-2 border"
               required
             />
           </div>
@@ -130,7 +132,7 @@ export default function Reservation() {
               value={formData.phoneNumber}
               onChange={handleChange}
               placeholder="+254 123456789"
-              className="w-full border px-3 py-2"
+              className="w-full px-3 py-2 border"
             />
           </div>
         </div>
@@ -141,7 +143,7 @@ export default function Reservation() {
           <select
             value={guests}
             onChange={(e) => setGuests(e.target.value)}
-            className="w-full border px-3 py-2"
+            className="w-full px-3 py-2 border"
             required
           >
             <option value="">Select an option</option>
@@ -159,7 +161,7 @@ export default function Reservation() {
               placeholder="Enter number of guests"
               value={customGuests}
               onChange={(e) => setCustomGuests(e.target.value)}
-              className="mt-3 w-full border px-3 py-2"
+              className="w-full px-3 py-2 mt-3 border"
               required
             />
           )}
@@ -171,7 +173,7 @@ export default function Reservation() {
           <DatePicker
             selected={date}
             onChange={(d) => setDate(d)}
-            className="w-full border px-3 py-2"
+            className="w-full px-3 py-2 border"
             dateFormat="MM/dd/yyyy"
             minDate={new Date()}
             required
@@ -192,14 +194,14 @@ export default function Reservation() {
             onChange={handleChange}
             maxLength={500}
             placeholder="eg. Dietary restrictions, preferred seating..."
-            className="w-full border px-3 py-2 h-28 "
+            className="w-full px-3 py-2 border h-28 "
           />
         </div>
 
         <div className="text-right">
           <button
             type="submit"
-            className="px-6 py-3 bg-gradient-to-r from-ethiopian-red to-ethiopian-dark text-white rounded shadow hover:scale-105 transition"
+            className="px-6 py-3 text-white transition rounded shadow bg-gradient-to-r from-ethiopian-red to-ethiopian-dark hover:scale-105"
           >
             Reserve
           </button>
@@ -209,12 +211,15 @@ export default function Reservation() {
       {/* Reservation List */}
       {reservations.length > 0 && (
         <div className="mt-8">
-          <h2 className="text-2xl font-semibold mb-4">Previous Reservations</h2>
+          <h2 className="mb-4 text-2xl font-semibold">Previous Reservations</h2>
           <ul className="space-y-2">
             {reservations.map((r, i) => (
               <li key={i} className="p-3 bg-white border rounded">
-                <strong>{r.firstName} {r.secondName}</strong> reserved for{" "}
-                <strong>{r.guests}</strong> guests on <strong>{r.date}</strong>
+                <strong>
+                  {r.firstName} {r.secondName}
+                </strong>{" "}
+                reserved for <strong>{r.guests}</strong> guests on{" "}
+                <strong>{r.date}</strong>
               </li>
             ))}
           </ul>
