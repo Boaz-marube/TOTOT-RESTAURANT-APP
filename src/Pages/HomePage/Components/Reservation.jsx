@@ -72,10 +72,9 @@ export default function Reservation() {
   };
 
   return (
-    <section className="bg-amber-100 dark:bg-slate-950">
-    <div className="dark:bg-slate-900 p-8">
-      <section className="max-w-5xl p-4 mx-auto rounded shadow-lgdark:text-white">
-        <h1 className="mb-4 text-4xl font-bold font-playfair dark:text-white">
+    <div className="p-8 dark:bg-slate-900">
+      <section className="max-w-5xl p-4 mx-auto rounded shadow bg-amber-100 dark:bg-slate-600 dark:text-white">
+        <h1 className="mb-4 text-4xl font-bold font-playfair">
           Reservation Form
         </h1>
 
@@ -85,7 +84,7 @@ export default function Reservation() {
 
         <form onSubmit={handleReserve} className="p-2 space-y-0 border rounded">
           {/* Names */}
-          <div className="grid gap-4 md:grid-cols-2 dark:text-white">
+          <div className="grid gap-4 md:grid-cols-2">
             <div>
               <label className="block mb-1">First Name</label>
               <input
@@ -94,7 +93,7 @@ export default function Reservation() {
                 value={formData.firstName}
                 onChange={handleChange}
                 placeholder="John"
-                className="w-full h-8 px-3 py-2 border-2"
+                className="w-full h-8 px-3 py-2 border"
                 required
               />
             </div>
@@ -106,14 +105,14 @@ export default function Reservation() {
                 value={formData.secondName}
                 onChange={handleChange}
                 placeholder="Doe"
-                className="w-full h-8 px-3 py-2 border-2"
+                className="w-full h-8 px-3 py-2 border"
                 required
               />
             </div>
           </div>
 
           {/* Email & Phone */}
-          <div className="grid gap-4 md:grid-cols-2 dark:text-white">
+          <div className="grid gap-4 md:grid-cols-2">
             <div>
               <label className="block mb-1">Email</label>
               <input
@@ -126,7 +125,7 @@ export default function Reservation() {
                 required
               />
             </div>
-            <div className="dark:text-white">
+            <div>
               <label className="block mb-1">Phone Number (Optional)</label>
               <input
                 type="tel"
@@ -140,7 +139,7 @@ export default function Reservation() {
           </div>
 
           {/* Guests */}
-          <div className="dark:text-white">
+          <div>
             <label className="block mb-1">Number of Guests</label>
             <select
               value={guests}
@@ -170,12 +169,12 @@ export default function Reservation() {
           </div>
 
           {/* Date */}
-          <div className="dark:text-white">
+          <div>
             <label className="block mb-1">Pick a Date</label>
             <DatePicker
               selected={date}
               onChange={(d) => setDate(d)}
-              className="w-full h-8 h px-3 py-2 border"
+              className="w-full h-8 px-3 py-2 border h"
               dateFormat="MM/dd/yyyy"
               minDate={new Date()}
               required
@@ -183,7 +182,7 @@ export default function Reservation() {
           </div>
 
           {/* Note */}
-          <div className="dark:text-white">
+          <div>
             <label className="block mb-1">
               Reservation Note{" "}
               <span className="text-sm text-gray-500 ">
@@ -196,7 +195,7 @@ export default function Reservation() {
               onChange={handleChange}
               maxLength={500}
               placeholder="eg. Dietary restrictions, preferred seating..."
-              className="w-full px-3 py-2 border h-20 "
+              className="w-full h-20 px-3 py-2 border "
             />
           </div>
 
@@ -210,31 +209,28 @@ export default function Reservation() {
           </div>
         </form>
 
-     {reservations.length > 0 && (
-    <div className="mt-8">
-      <h2 className="mb-4 text-2xl font-semibold">
+        {reservations.length > 0 && (
+          <div className="mt-8">
+            <h2 className="mb-4 text-2xl font-semibold">
               Previous Reservations
             </h2>
-      
-    <div className="overflow-y-auto max-h-44 pr-2">  
-      <ul className="space-y-2 dark:text-black">
-          {reservations.map((r, i) => (
-            <li key={i} className="p-3 bg-white border rounded">
-              <strong>
-                {r.firstName} {r.secondName}
-              </strong>{" "}
-              reserved for <strong>{r.guests}</strong> guests on{" "}
-              <strong>{r.date}</strong>
-            </li>
-          ))}
-        </ul>
-      </div>
-    
-  </div>
-  )}
-      </section>
 
-    </section>
-  </div>
+            <div className="pr-2 overflow-y-auto max-h-44">
+              <ul className="space-y-2 dark:text-black">
+                {reservations.map((r, i) => (
+                  <li key={i} className="p-3 bg-white border rounded">
+                    <strong>
+                      {r.firstName} {r.secondName}
+                    </strong>{" "}
+                    reserved for <strong>{r.guests}</strong> guests on{" "}
+                    <strong>{r.date}</strong>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        )}
+      </section>
+    </div>
   );
 }
