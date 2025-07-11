@@ -1,7 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   darkMode: "class",
-  content: ["./index.html","./src/**/*.{js,ts,jsx,tsx}"],
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
       colors: {
@@ -12,6 +12,7 @@ export default {
         "menu-title": "#4A3A0C",
         "contact-bg": "#93532A",
         "dish-des": "#4A3A0C",
+        "dish-color": "#8B4513",
       },
       fontFamily: {
         inter: ["Inter", "sans-serif"],
@@ -20,5 +21,4 @@ export default {
     },
   },
   plugins: [],
-}
-
+};
