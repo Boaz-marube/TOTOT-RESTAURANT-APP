@@ -1,0 +1,72 @@
+import img1 from "../../../assets/dulet.jpg";
+import img2 from "../../../assets/doro wat be enjera.jpg";
+import img3 from "../../../assets/shekla-tibs.webp";
+export const Dishs = [
+  {
+    id: 1,
+    name: "Totot Kitfo",
+    descrption: "Classic kitfo with cabbage",
+    catagory: "non-veg",
+    price: " $15",
+    images: img1,
+    featured: true,
+  },
+  {
+    id: 2,
+    name: "Dulet",
+    descrption: "Chopped Fried Beef",
+    catagory: "non-veg",
+    price: " $18",
+    images: img2,
+    featured: true,
+  },
+  {
+    id: 3,
+    name: "Finta Fento",
+    descrption: " Spicy kitfo sauce with cheese",
+    catagory: "non-veg",
+    price: "$16",
+    images: img3,
+    featured: true,
+  },
+  {
+    id: 4,
+    name: " Injera Platter",
+    descrption: "Fresh Vegetarian variety platter",
+    catagory: "veg",
+    price: "40",
+    images: "../../../assets/injera platter.webp",
+  },
+  {
+    id: 5,
+    name: "Totot Kitfo",
+    descrption: " Spicy kitfo sauce with cheese",
+    catagory: "veg",
+    price: "40",
+    images: "../../../assets/meeting-1.jpg",
+  },
+  {
+    id: 6,
+    name: "Totot Kitfo",
+    descrption: " Spicy kitfo sauce with cheese",
+    catagory: "veg",
+    price: "40",
+    images: "../../../assets/meeting-1.jpg",
+  },
+  {
+    id: 7,
+    name: "Totot Kitfo",
+    descrption: " Spicy kitfo sauce with cheese",
+    catagory: "veg",
+    price: "12",
+    images: "../../../assets/meeting-1.jpg",
+  },
+  {
+    id: 8,
+    name: "Totot Kitfo",
+    descrption: " Spicy kitfo sauce with cheese",
+    catagory: "veg",
+    price: "12",
+    images: "../../../assets/meeting-1.jpg",
+  },
+];
