@@ -11,7 +11,7 @@ const NavBar = () => {
 
   const menuLinks = [
     { label: "Starters", to: "/starter" },
-    { label: "Main Dishes", to: "/mandishes" },
+    { label: "Main Dishes", to: "/maindishes" },
     { label: "Drinks", to: "/drinks" },
     { label: "Desserts", to: "/desserts" },
   ];
@@ -59,13 +59,13 @@ const NavBar = () => {
           </div>
 
           {/* Other Links */}
-          <a href="#story" className="nav-link">
-            Reservation Form
+          <a href="#reservation" className="nav-link">
+            Reservation
           </a>
           <a href="#signature-dish" className="nav-link">
             Signature Dishes
           </a>
-          <a href="#feedback" className="nav-link">
+          <a href="#chatbot" className="nav-link">
             Chatbot
           </a>
           <a href="#feedback" className="nav-link">
@@ -83,17 +83,17 @@ const NavBar = () => {
             className="flex flex-col items-center justify-center w-10 h-10 focus:outline-none relative"
         >
             <span
-            className={`hamburger-line bg-gray-100 h-1 w-10 rounded transform transition duration-300 ease-in-out ${
+            className={`hamburger-line bg-gray-100 h-1 w-9 rounded transform transition duration-300 ease-in-out ${
                 mobileMenuOpen ? 'rotate-45 translate-y-3' : ''
             }`}
             ></span>
             <span
-            className={`hamburger-line mt-1.5 bg-gray-100 h-1 w-10 rounded transition duration-300 ease-in-out ${
+            className={`hamburger-line mt-1.5 bg-gray-100 h-1 w-9 rounded transition duration-300 ease-in-out ${
                 mobileMenuOpen ? 'opacity-0' : ''
             }`}
             ></span>
             <span
-            className={`hamburger-line mt-1.5 bg-gray-100 h-1 w-10 rounded transform transition duration-300 ease-in-out ${
+            className={`hamburger-line mt-1.5 bg-gray-100 h-1 w-9 rounded transform transition duration-300 ease-in-out ${
                 mobileMenuOpen ? '-rotate-45 -translate-y-2' : ''
             }`}
             ></span>
