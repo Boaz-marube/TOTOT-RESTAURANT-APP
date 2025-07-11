@@ -1,24 +1,44 @@
 // components/sections/MainDishes.jsx
-import React from "react";
 import Card from "./Card";
-import { Dishs } from "../../../database/data";
-
+import DiningCard from "./DiningCard";
+import { features } from "../../../database/data";
+import { mainDish } from "../../../database/data";
 const MainDishes = () => {
   return (
-    <section className="bg-menu dark:bg-slate-900 w-full">
+    <section className="w-full bg-menu dark:bg-slate-900">
       {/* Hero Header */}
-      <div className="w-full h-30 p-4 sm:h-40 md:h-52 lg:h-60 bg-dish-color flex items-center justify-center dark:bg-ethiopian-dark">
-        <h2 className="text-white text-3xl sm:text-4xl lg:text-5xl text-center">
-          Ma<span className="border-b-4 border-yellow-400 pb-1">in Dis</span>hes
+      <div className="flex items-center justify-center w-full p-4 h-30 sm:h-40 md:h-52 lg:h-60 bg-dish-color dark:bg-ethiopian-dark">
+        <h2 className="text-3xl text-center text-white sm:text-4xl lg:text-5xl">
+          Ma<span className="pb-1 border-b-4 border-yellow-400">in Dis</span>hes
         </h2>
       </div>
 
       {/* Dishes Grid */}
-      <div className=" container mx-auto px-4 py-12 bg-menu-bg dark:bg-slate-900 w-full">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {Dishs.map((dish) => (
+      <div className="container w-full px-4 py-12 mx-auto bg-menu-bg dark:bg-slate-900">
+        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          {mainDish.map((dish) => (
             <Card key={dish.id} dish={dish} />
           ))}
+        </div>
+      </div>
+      <div className="w-full py-12 lg:h-auto bg-dish-color">
+        <h1 className="mb-12 text-3xl text-center text-white md:text-4xl lg:text-5xl dark:text-white">
+          The Ethiopian{" "}
+          <span className="pb-1 border-b-4 border-yellow-400">Dining Ex</span>
+          perience
+        </h1>
+
+        <div className="container px-4 mx-auto">
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+            {features.map((feature, index) => (
+              <DiningCard
+                key={index}
+                image={feature.image}
+                title={feature.title}
+                description={feature.description}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </section>
