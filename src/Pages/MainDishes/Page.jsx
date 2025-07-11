@@ -1,11 +1,12 @@
-import React from 'react'
+import React from "react";
+import MainDishe from "./Components/MainDish";
 
 function MainDishes() {
   return (
     <div>
-      <h1>Hello from main dishes</h1>
+      <MainDishe />
     </div>
-  )
+  );
 }
 
-export default MainDishes
+export default MainDishes;
