@@ -10,11 +10,23 @@ import logging
 from pydantic import BaseModel, Field
 from typing import List, Literal, Dict, Any
 import sys 
-sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+import os
 
+# Add the parent directory to Python path to access src modules
+current_dir = os.path.dirname(os.path.abspath(__file__))
+parent_dir = os.path.dirname(current_dir)
+sys.path.insert(0, parent_dir)
+sys.path.insert(0, current_dir)
 
-from src.rag_service import RAGService
-from src.config import get_settings 
+try:
+    from rag_service import RAGService
+    from config import get_settings
+except ImportError as e:
+    print(f"Import error: {e}")
+    print(f"Current working directory: {os.getcwd()}")
+    print(f"Python path: {sys.path}")
+    print(f"Files in current directory: {os.listdir('.')}")
+    raise 
 from pydantic import BaseModel, Field 
 
 # Configuring logging for better visibility during startup/shutdown
@@ -134,13 +146,13 @@ app = FastAPI(
 # CORS Configuration
 settings = get_settings()
 
-# Configuring CORS middleware
+# Configure CORS middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  
+    allow_origins=["*"],  # Change this to specific origins in production
     allow_credentials=True,
-    allow_methods=["*"],  
-    allow_headers=["*"],  
+    allow_methods=["*"],  # Allow all HTTP methods
+    allow_headers=["*"],  # Allow all headers
 )
 
 # --- API Endpoints ---

@@ -1,0 +1,24 @@
+services:
+  - type: web
+    name: totot-restaurant-api
+    env: docker
+    plan: starter  # or whatever plan you're using
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    envVars:
+      - key: PORT
+        value: 8000
+      - key: PYTHONPATH
+        value: /app
+      - key: HF_TOKEN
+        fromSecret: HF_TOKEN  # Make sure to set this in Render dashboard
+      # Add other environment variables as needed
+      - key: APP_NAME
+        value: "Totot Restaurant API"
+    buildFilter:
+      paths:
+      - "**/*.py"
+      - "requirements.txt"
+      - "Dockerfile"
+    healthCheckPath: /health
+    startCommand: "python -m uvicorn src.main:app --host 0.0.0.0 --port $PORT"
