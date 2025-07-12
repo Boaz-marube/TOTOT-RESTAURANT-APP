@@ -1,0 +1,30 @@
+services:
+  - type: web
+    name: totot-restaurant-api
+    env: python3
+    plan: starter
+    buildCommand: pip install -r src/requirements.txt
+    startCommand: python -m uvicorn src.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PYTHONPATH
+        value: .
+      - key: HF_TOKEN
+        fromSecret: HF_TOKEN
+      - key: APP_NAME
+        value: "Totot Restaurant API"
+      - key: APP_VERSION
+        value: "1.0.0"
+      - key: HOST
+        value: "0.0.0.0"
+      - key: PORT
+        value: 8000
+      # Add your other config variables here
+      - key: LLAMA_MODEL_ID
+        value: "your-model-id"  # Replace with your actual model
+      - key: TOP_P
+        value: "0.9"
+    healthCheckPath: /health
+    buildFilter:
+      paths:
+      - "**/*.py"
+      - "src/requirements.txt"
