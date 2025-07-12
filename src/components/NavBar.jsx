@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import ThemeToggle from "./ThemeToggle";
 import logo from "@/assets/toto-logo.png";
+
 const NavBar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [menuDropdownOpen, setMenuDropdownOpen] = useState(false);
@@ -25,31 +26,25 @@ const NavBar = () => {
         </div>
 
         {/* Desktop Navigation */}
-        <nav
-          className="items-center hidden space-x-6 md:flex font-bold"
-          aria-label="Main navigation"
-        >
-          <Link to="/" className="nav-link">
-            Home
-          </Link>
+        <nav className="items-center hidden space-x-6 md:flex" aria-label="Main navigation">
+          <Link to="/#home" className="nav-link">Home</Link>
 
-          {/* Dropdown */}
-          <div className="relative">
-            <button
-              onClick={toggleMenuDropdown}
-              className="flex items-center nav-link"
-            >
-              Menu
-              <i className="ml-1 fa-solid fa-angle-down"></i>
+          <div
+            className="relative"
+            onMouseEnter={() => setMenuDropdownOpen(true)}
+            onMouseLeave={() => setMenuDropdownOpen(false)}
+          >
+            <button className="flex items-center nav-link">
+              Menu <i className="ml-1 fa-solid fa-angle-down"></i>
             </button>
+
             {menuDropdownOpen && (
-              <div className="absolute left-0 z-20 w-48 py-1 mt-2 bg-white rounded-md shadow-lg dark:bg-gray-800">
+              <div className="absolute left-0 z-20 w-48 py-1 mt-0 bg-white rounded-md shadow-lg dark:bg-gray-800">
                 {menuLinks.map(({ label, to }) => (
                   <Link
                     key={to}
                     to={to}
                     className="block px-4 py-2 text-gray-800 dark:text-gray-200 hover:bg-amber-100 dark:hover:bg-gray-700"
-                    onClick={() => setMenuDropdownOpen(false)}
                   >
                     {label}
                   </Link>
@@ -58,62 +53,36 @@ const NavBar = () => {
             )}
           </div>
 
-          {/* Other Links */}
-          <a href="#reservation" className="nav-link">
-            Reservation
-          </a>
-          <a href="#signature-dish" className="nav-link">
-            Signature Dishes
-          </a>
-          <a href="#chatbot" className="nav-link">
-            Chatbot
-          </a>
-          <a href="#feedback" className="nav-link">
-            Footer
-          </a>
+          <a href="/#reservation" className="nav-link">Reservation</a>
+          <a href="/#signature-dish" className="nav-link">Signature Dishes</a>
+          <a href="/#chatbot" className="nav-link"></a>
+          <a href="/#feedback" className="nav-link"></a>
 
-          {/* Theme Toggle */}
           <ThemeToggle />
         </nav>
 
         {/* Hamburger Menu */}
         <div className="flex md:hidden">
-        <button
+          <button
             onClick={toggleMobileMenu}
             className="flex flex-col items-center justify-center w-10 h-10 focus:outline-none relative"
-        >
-            <span
-            className={`hamburger-line bg-gray-100 h-1 w-9 rounded transform transition duration-300 ease-in-out ${
-                mobileMenuOpen ? 'rotate-45 translate-y-3' : ''
-            }`}
-            ></span>
-            <span
-            className={`hamburger-line mt-1.5 bg-gray-100 h-1 w-9 rounded transition duration-300 ease-in-out ${
-                mobileMenuOpen ? 'opacity-0' : ''
-            }`}
-            ></span>
-            <span
-            className={`hamburger-line mt-1.5 bg-gray-100 h-1 w-9 rounded transform transition duration-300 ease-in-out ${
-                mobileMenuOpen ? '-rotate-45 -translate-y-2' : ''
-            }`}
-            ></span>
-        </button>
+          >
+            <span className={`hamburger-line bg-gray-100 h-1 w-9 rounded transform transition duration-300 ease-in-out ${mobileMenuOpen ? 'rotate-45 translate-y-3' : ''}`} />
+            <span className={`hamburger-line mt-1.5 bg-gray-100 h-1 w-9 rounded transition duration-300 ease-in-out ${mobileMenuOpen ? 'opacity-0' : ''}`} />
+            <span className={`hamburger-line mt-1.5 bg-gray-100 h-1 w-9 rounded transform transition duration-300 ease-in-out ${mobileMenuOpen ? '-rotate-45 -translate-y-2' : ''}`} />
+          </button>
         </div>
-
       </div>
 
       {/* Mobile Menu */}
       {mobileMenuOpen && (
         <div className="absolute md:hidden left-0 pl-2 w-full text-white bg-black shadow-lg top-full dark:bg-gray-900 font-bold">
-          <nav className="flex flex-col py-4 " aria-label="Mobile navigation">
-            <Link
-              to="/"
-              className="mobile-link"
-              onClick={() => setMobileMenuOpen(false)}
-            >
+          <nav className="flex flex-col py-4" aria-label="Mobile navigation">
+            <Link to="/#home" className="mobile-link" onClick={() => setMobileMenuOpen(false)}>
               Home
             </Link>
-            <hr className="border-t border-gray-300 my-2"/>
+            <hr className="border-t border-gray-300 my-2" />
+
             {/* Dropdown */}
             <div>
               <button
@@ -140,31 +109,21 @@ const NavBar = () => {
                 </div>
               )}
             </div>
-            <hr className="border-t border-gray-300 my-2"/>
-            <a
-              href="#story"
-              className="mobile-link"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              Reservation 
+
+            <hr className="border-t border-gray-300 my-2" />
+            <a href="/#reservation" className="mobile-link" onClick={() => setMobileMenuOpen(false)}>
+              Reservation
             </a>
-            <hr className="border-t border-gray-300 my-2"/>
-            <a
-              href="#signature-dish"
-              className="mobile-link"
-              onClick={() => setMobileMenuOpen(false)}
-            >
+            <hr className="border-t border-gray-300 my-2" />
+            <a href="/#signature-dish" className="mobile-link" onClick={() => setMobileMenuOpen(false)}>
               Signature Dishes
             </a>
-            <hr className="border-t border-gray-300 my-2"/>
-            <a
-              href="#feedback"
-              className="mobile-link"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              Footer
+            <hr className="border-t border-gray-300 my-2" />
+            <a href="/#feedback" className="mobile-link" onClick={() => setMobileMenuOpen(false)}>
+              
             </a>
-            <hr className="border-t border-gray-300 my-2"/>
+            <hr className="border-t border-gray-300 my-2" />
+
             {/* Mobile Theme Toggle */}
             <div className="px-0 py-0">
               <ThemeToggle />

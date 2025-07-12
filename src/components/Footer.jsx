@@ -124,7 +124,7 @@ const Footer = () => {
                   {isOpen ? (
                     <span className="text-green-400">We're Open!</span>
                   ) : (
-                    <span className="text-red-400">Currently Closed</span>
+                    <span className="text-red-700 bg-amber-400 p-2 rounded-md">Currently Closed</span>
                   )}
                 </span>
               </div>
@@ -158,9 +158,9 @@ const Footer = () => {
               <ul className="space-y-3">
                 {[
                   { href: "#home", label: "Home" },
-                  { href: "#signature-dish", label: "Menu" },
+                  { href: "#signature-dish", label: "Signature Dishes" },
                   { href: "#reservation", label: "Reservation" },
-                  { href: "#contact", label: "Contact Us" },
+                  { href: "#contact", label: "" },
                 ].map((link, i) => (
                   <li key={i}>
                     <Link

@@ -72,7 +72,7 @@ export default function Reservation() {
   };
 
   return (
-    <div className="p-8 dark:bg-slate-900">
+    <div id="reservation" className="p-8 dark:bg-slate-900">
       <section className="max-w-5xl p-4 mx-auto rounded shadow bg-amber-100 dark:bg-slate-600 dark:text-white">
         <h1 className="mb-4 text-4xl font-bold font-playfair">
           Reservation Form
