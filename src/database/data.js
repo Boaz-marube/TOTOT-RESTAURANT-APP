@@ -1,22 +1,23 @@
-import img1 from "../assets/dulet.jpg";
-import img2 from "../assets/doro-wat-be-enjera.jpg";
-import img3 from "../assets/shekla-tibs.webp";
-import img4 from "../assets/Finta-fento.jpg";
-import img5 from "../assets/gomen-kitfo.jpg";
-import img6 from "../assets/tegabino.jpg";
-import img7 from "../assets/chicken-stew.jpg";
-import img8 from "../assets/cheese-kitfo.jpg";
-import img10 from "../assets/Vegetarian/fosolia.jpg";
-import img11 from "../assets/Vegetarian/kik-alicha.jpg";
-import img9 from "../assets/injera-platter.webp";
-import mainDish1 from "../assets/main-dish1.png";
-import mainDish2 from "../assets/main-dish2.png";
-import mainDish3 from "../assets/main-dish3.png";
-import mainDish4 from "../assets/mainDish4.png";
-import mainDish6 from "../assets/dulet.jpg";
-import mainDish7 from "../assets/mainDish7.png";
-import mainDish8 from "../assets/mainDish8.png";
-import mainDish9 from "../assets/mainDish6.png";
+import img1 from "@/assets/dulet.jpg";
+import img2 from "@/assets/doro-wat-be-enjera.jpg";
+import img3 from "@/assets/shekla-tibs.webp";
+import img4 from "@/assets/Finta-fento.jpg";
+import img5 from "@/assets/gomen-kitfo.jpg";
+import img6 from "@/assets/tegabino.jpg";
+import img7 from "@/assets/chicken-stew.jpg";
+import img8 from "@/assets/cheese-kitfo.jpg";
+import img9 from "@/assets/injera-platter.webp";
+import img10 from "@/assets/Vegetarian/fosolia.jpg";
+import img11 from "@/assets/Vegetarian/kik-alicha.jpg";
+import mainDish1 from "@/assets/main-dish1.png";
+import mainDish2 from "@/assets/main-dish2.png";
+import mainDish3 from "@/assets/main-dish3.png";
+import mainDish4 from "@/assets/mainDish4.png";
+import mainDish6 from "@/assets/dulet.jpg";
+import mainDish7 from "@/assets/mainDish7.png";
+import mainDish8 from "@/assets/mainDish8.png";
+import mainDish9 from "@/assets/mainDish6.png";
+
 export const Dishs = [
   {
     id: 1,
