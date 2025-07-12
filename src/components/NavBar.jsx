@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import ThemeToggle from "./ThemeToggle";
 import logo from "@/assets/toto-logo.png";
+import ScrollLink from "@/components/ScrollLink";
+
 
 const NavBar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -53,10 +55,15 @@ const NavBar = () => {
             )}
           </div>
 
-          <a href="/#reservation" className="nav-link">Reservation</a>
+          {/* <a href="/#reservation" className="nav-link">Reservation</a>
           <a href="/#signature-dish" className="nav-link">Signature Dishes</a>
           <a href="/#chatbot" className="nav-link"></a>
-          <a href="/#feedback" className="nav-link"></a>
+          <a href="/#feedback" className="nav-link"></a> */}
+
+
+        <ScrollLink to="#reservation" className="nav-link">Reservation</ScrollLink>
+        <ScrollLink to="#signature-dish" className="nav-link">Signature Dishes</ScrollLink>
+
 
           <ThemeToggle />
         </nav>
@@ -119,11 +126,6 @@ const NavBar = () => {
               Signature Dishes
             </a>
             <hr className="border-t border-gray-300 my-2" />
-            <a href="/#feedback" className="mobile-link" onClick={() => setMobileMenuOpen(false)}>
-              
-            </a>
-            <hr className="border-t border-gray-300 my-2" />
-
             {/* Mobile Theme Toggle */}
             <div className="px-0 py-0">
               <ThemeToggle />
