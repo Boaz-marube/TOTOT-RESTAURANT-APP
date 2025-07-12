@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import {
   FaPaperPlane,
   FaUtensils,
@@ -11,6 +11,7 @@ function ChatbotUI({ onClose }) {
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
   const [isTyping, setIsTyping] = useState(false);
+  const chatContainerRef = useRef(null); // ✅ 1. Add ref
 
   const sampleQuestions = [
     "What's your most popular dish?",
@@ -19,6 +20,14 @@ function ChatbotUI({ onClose }) {
     "Are you open on holidays?",
     "Can you explain what kitfo is?",
   ];
+
+  // ✅ 2. Scroll to bottom on new message
+  useEffect(() => {
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop =
+        chatContainerRef.current.scrollHeight;
+    }
+  }, [messages, isTyping]);
 
   const triggerBotResponse = (currentMessages) => {
     setIsTyping(true);
@@ -60,7 +69,10 @@ function ChatbotUI({ onClose }) {
         </header>
 
         {/* Chat Display */}
-        <div className="p-4 mb-4 space-y-2 overflow-y-auto bg-gray-100 rounded-lg dark:bg-gray-700 min-h-48 max-h-48 scroll-smooth">
+        <div
+          ref={chatContainerRef} // ✅ 3. Attach ref
+          className="p-4 mb-4 space-y-2 overflow-y-auto bg-gray-100 rounded-lg dark:bg-gray-700 min-h-48 max-h-48 scroll-smooth"
+        >
           {messages.map((msg, i) => (
             <div
               key={i}
