@@ -8,7 +8,7 @@ import img7 from "@/assets/chicken-stew.jpg";
 import img8 from "@/assets/cheese-kitfo.jpg";
 import img9 from "@/assets/injera-platter.webp";
 import img10 from "@/assets/Vegetarian/fosolia.jpg";
-import img11 from "@/assets/Vegetarian/kik-alicha.jpg";
+
 import mainDish1 from "@/assets/main-dish1.png";
 import mainDish2 from "@/assets/main-dish2.png";
 import mainDish3 from "@/assets/main-dish3.png";
@@ -108,7 +108,7 @@ export const Dishs = [
     description: "Fasting food",
     catagory: "veg",
     price: "$12",
-    images: img11,
+    images: img10,
   },
 ];
 export const drinks = [
