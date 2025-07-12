@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-
+import { Link } from "react-router-dom";
 export default function TextContent() {
   const restaurantName = "Totot Ethiopian Traditional Restaurant";
   const [displayedText, setDisplayedText] = useState("");
@@ -41,12 +41,13 @@ export default function TextContent() {
           <p className="mb-6 text-xl text-white sm:text-2xl">
             Where every bite tells a story
           </p>
-          <a
+          <Link
             className="px-8 py-3 text-lg font-bold text-white transition-transform rounded-md bg-gradient-to-r from-ethiopian-red to-ethiopian-dark hover:scale-105"
-            href="/maindishes"
+            // href="/"
+            to={{ pathname: "/maindishes" }}
           >
             Explore Our Menu
-          </a>
+          </Link>
         </div>
       </div>
     </section>
