@@ -9,7 +9,7 @@ const Hero = () => {
   return (
     <div
       id="home"
-      className="max-[1200px]: w-full h-[calc(100vh-64px)] opacity-4"
+      className="max-[1200px]: w-full h-[calc(100vh-60px)] opacity-4"
     >
       <ImageSlider imagesUrl={Images} autoSlide={true} />
     </div>
