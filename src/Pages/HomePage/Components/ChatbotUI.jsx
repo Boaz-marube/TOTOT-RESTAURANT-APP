@@ -10,12 +10,7 @@ import {
 function ChatbotUI({ onClose }) {
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
-
-  const sendMessage = () => {
-    if (message.trim() === "") return;
-    setMessages([...messages, { text: message, from: "user" }]);
-    setMessage("");
-  };
+  const [isTyping, setIsTyping] = useState(false);
 
   const sampleQuestions = [
     "What's your most popular dish?",
@@ -25,8 +20,29 @@ function ChatbotUI({ onClose }) {
     "Can you explain what kitfo is?",
   ];
 
+  const triggerBotResponse = (currentMessages) => {
+    setIsTyping(true);
+    setTimeout(() => {
+      setIsTyping(false);
+      setMessages([
+        ...currentMessages,
+        { text: "Totobot is still learning. Please stay tuned!", from: "bot" },
+      ]);
+    }, 1500); // simulate typing delay
+  };
+
+  const sendMessage = () => {
+    if (message.trim() === "") return;
+    const newMessages = [...messages, { text: message, from: "user" }];
+    setMessages(newMessages);
+    setMessage("");
+    triggerBotResponse(newMessages);
+  };
+
   const handleSampleClick = (q) => {
-    setMessages([...messages, { text: q, from: "user" }]);
+    const newMessages = [...messages, { text: q, from: "user" }];
+    setMessages(newMessages);
+    triggerBotResponse(newMessages);
   };
 
   return (
@@ -51,12 +67,21 @@ function ChatbotUI({ onClose }) {
               className={`p-1 rounded-lg ${
                 msg.from === "user"
                   ? "bg-amber-300 text-black self-end ml-auto w-fit"
-                  : "bg-white text-black"
+                  : "bg-white dark:bg-gray-600 text-black dark:text-white w-fit"
               }`}
             >
               {msg.text}
             </div>
           ))}
+
+          {/* Typing Indicator */}
+          {isTyping && (
+            <div className="flex items-center gap-2 p-2 bg-white rounded-lg dark:bg-gray-600 w-fit animate-pulse">
+              <span className="text-sm text-gray-600 dark:text-gray-200">
+                Totobot is typing...
+              </span>
+            </div>
+          )}
         </div>
 
         {/* Sample Questions */}

@@ -31,7 +31,7 @@ export default function TextContent() {
   return (
     <section className="absolute inset-0 flex items-center justify-center ">
       <div className="w-full px-3 mx-auto max-w-7xl sm:px-6 lg:px-7">
-        <div className="flex flex-col items-center text-center bg-black/30 backdrop-blur-sm m-8 p-6 rounded-lg">
+        <div className="flex flex-col items-center p-6 m-8 text-center rounded-lg bg-black/30 backdrop-blur-sm">
           {/* Typewriter Heading with conditional cursor */}
           <h1 className="mb-4 text-4xl font-bold text-white md:text-5xl lg:text-6xl font-playfair text-pretty">
             {displayedText}
