@@ -2,7 +2,7 @@
 
 A modern, elegant, and culturally rich website for **Totot Ethiopian Restaurant**, providing an immersive digital dining experience while reflecting the warmth of Ethiopian hospitality and cuisine.
 
-### 🚀 [Totot Restaurant Website](https://tototrestaurant.netlify.app/)
+### 🚀 [Totot Restaurant Website](https://tototrestaurantapp.netlify.app/)
 
 ---
 
@@ -14,28 +14,28 @@ This project delivers a complete front-end implementation for a traditional Ethi
 
 ## ✨ Key Features
 
-* ✅ **Fully Responsive Layout** — Works perfectly on mobile, tablet, and desktop.
-* ✅ **Modern & Elegant UI** — Combining Ethiopian cultural aesthetics with clean, minimal modern design.
-* ✅ **Interactive Menu** — Dishes categorized and displayed in responsive grids with high-quality images and descriptions.
-* ✅ **AI-Powered Chatbot** — "Ask the Chef" feature answering queries about dishes, bookings, and restaurant info.
-* ✅ **Light/Dark Mode Toggle** — For comfortable viewing preferences.
-* ✅ **‘Our Story’ Section** — Sharing the restaurant's cultural heritage.
-* ✅ **Reservation & Feedback Forms** — Seamlessly integrated and styled.
-* ✅ **Embedded Map and Business Hours** — Clear directions and availability.
-* ✅ **Smooth Scroll Navigation** — Clean, animated scrolling between internal page sections.
+- ✅ **Fully Responsive Layout** — Works perfectly on mobile, tablet, and desktop.
+- ✅ **Modern & Elegant UI** — Combining Ethiopian cultural aesthetics with clean, minimal modern design.
+- ✅ **Interactive Menu** — Dishes categorized and displayed in responsive grids with high-quality images and descriptions.
+- ✅ **AI-Powered Chatbot** — "Ask the Chef" feature answering queries about dishes, bookings, and restaurant info.
+- ✅ **Light/Dark Mode Toggle** — For comfortable viewing preferences.
+- ✅ **‘Our Story’ Section** — Sharing the restaurant's cultural heritage.
+- ✅ **Reservation & Feedback Forms** — Seamlessly integrated and styled.
+- ✅ **Embedded Map and Business Hours** — Clear directions and availability.
+- ✅ **Smooth Scroll Navigation** — Clean, animated scrolling between internal page sections.
 
 ---
 
 ## 🛠️ Tech Stack
 
-* **Vite + React** — Front-end framework.
-* **Tailwind CSS** — Utility-first styling.
-* **JavaScript (ES6)** — For interactivity.
-* **React Router** — Client-side routing.
-* **React Icons & Lucide React** — Iconography.
-* **Google Gemini + FastAPI (Python)** — AI-powered chatbot backend.
-* **Git & GitHub** — Version control and collaboration.
-* **Netlify** — Front-end deployment.
+- **Vite + React** — Front-end framework.
+- **Tailwind CSS** — Utility-first styling.
+- **JavaScript (ES6)** — For interactivity.
+- **React Router** — Client-side routing.
+- **React Icons & Lucide React** — Iconography.
+- **Google Gemini + FastAPI (Python)** — AI-powered chatbot backend.
+- **Git & GitHub** — Version control and collaboration.
+- **Netlify** — Front-end deployment.
 
 ---
 
@@ -97,5 +97,3 @@ Open `http://localhost:5173/` in your browser.
 | **Boaz Marube**    | Full Stack Developer       |
 | **Bereket Eshete** | Full Stack Developer       |
 | **Ushindi Sidi**   | AI Integration & QA Tester |
-
-
