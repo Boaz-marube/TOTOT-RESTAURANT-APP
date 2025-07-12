@@ -6,12 +6,13 @@ import {
   FaLeaf,
   FaQuestionCircle,
 } from "react-icons/fa";
+import { sendChatbotMessage } from "@/API/chatbotAPI"; 
 
 function ChatbotUI({ onClose }) {
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
   const [isTyping, setIsTyping] = useState(false);
-  const chatContainerRef = useRef(null); // ✅ 1. Add ref
+  const chatContainerRef = useRef(null);
 
   const sampleQuestions = [
     "What's your most popular dish?",
@@ -21,7 +22,6 @@ function ChatbotUI({ onClose }) {
     "Can you explain what kitfo is?",
   ];
 
-  // ✅ 2. Scroll to bottom on new message
   useEffect(() => {
     if (chatContainerRef.current) {
       chatContainerRef.current.scrollTop =
@@ -29,15 +29,15 @@ function ChatbotUI({ onClose }) {
     }
   }, [messages, isTyping]);
 
-  const triggerBotResponse = (currentMessages) => {
+  // Bot response using API call
+  const triggerBotResponse = async (currentMessages, userMessage) => {
     setIsTyping(true);
-    setTimeout(() => {
-      setIsTyping(false);
-      setMessages([
-        ...currentMessages,
-        { text: "Totobot is still learning. Please stay tuned!", from: "bot" },
-      ]);
-    }, 1500); // simulate typing delay
+    const botReply = await sendChatbotMessage(userMessage);
+    setIsTyping(false);
+    setMessages([
+      ...currentMessages,
+      { text: botReply, from: "bot" },
+    ]);
   };
 
   const sendMessage = () => {
@@ -45,13 +45,13 @@ function ChatbotUI({ onClose }) {
     const newMessages = [...messages, { text: message, from: "user" }];
     setMessages(newMessages);
     setMessage("");
-    triggerBotResponse(newMessages);
+    triggerBotResponse(newMessages, message);
   };
 
   const handleSampleClick = (q) => {
     const newMessages = [...messages, { text: q, from: "user" }];
     setMessages(newMessages);
-    triggerBotResponse(newMessages);
+    triggerBotResponse(newMessages, q);
   };
 
   return (
@@ -70,7 +70,7 @@ function ChatbotUI({ onClose }) {
 
         {/* Chat Display */}
         <div
-          ref={chatContainerRef} // ✅ 3. Attach ref
+          ref={chatContainerRef}
           className="p-4 mb-4 space-y-2 overflow-y-auto bg-gray-100 rounded-lg dark:bg-gray-700 min-h-48 max-h-48 scroll-smooth"
         >
           {messages.map((msg, i) => (
@@ -86,7 +86,6 @@ function ChatbotUI({ onClose }) {
             </div>
           ))}
 
-          {/* Typing Indicator */}
           {isTyping && (
             <div className="flex items-center gap-2 p-2 bg-white rounded-lg dark:bg-gray-600 w-fit animate-pulse">
               <span className="text-sm text-gray-600 dark:text-gray-200">
@@ -118,6 +117,12 @@ function ChatbotUI({ onClose }) {
             type="text"
             value={message}
             onChange={(e) => setMessage(e.target.value)}
+            onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  e.preventDefault();  
+                  sendMessage();
+                }
+              }}
             placeholder="Ask Totobot anything..."
             className="flex-1 px-4 py-3 text-sm text-white border bg-amber-800 border-amber-700 rounded-2xl placeholder-amber-200 focus:outline-none focus:ring-2 focus:ring-amber-300"
           />
