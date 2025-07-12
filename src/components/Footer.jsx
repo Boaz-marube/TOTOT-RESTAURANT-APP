@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import logo from "../assets/toto logo.png";
+import { useState, useEffect } from "react"; 
+import logo from "../assets/toto-logo.png";
 import { Link } from "react-router-dom";
 import { Phone, Locate, Mail } from "lucide-react";
 const Footer = () => {
