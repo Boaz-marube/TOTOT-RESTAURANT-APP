@@ -2,7 +2,7 @@
 
 A modern, elegant, and culturally rich website for **Totot Ethiopian Restaurant**, providing an immersive digital dining experience while reflecting the warmth of Ethiopian hospitality and cuisine.
 
-### 🚀 [Live Site](https://tototrestaurant.netlify.app/)
+### 🚀 [Totot Restaurant Website](https://tototrestaurant.netlify.app/)
 
 ---
 
