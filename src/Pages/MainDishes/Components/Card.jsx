@@ -24,7 +24,7 @@ const Card = ({ dish }) => {
           <span className="text-lg font-bold text-red-700 text-brown-500 dark:text-brown-300">
             {dish.price}
           </span>
-          <button className="px-4 py-2 text-white transition-colors bg-green-700 rounded-md hover:bg-opacity-90 dark:bg-ethiopian-gold dark:text-gray-900">
+          <button className="px-4 py-2 text-white transition-colors bg-green-700 rounded-md hover:bg-opacity-90 dark:bg-ethiopian-gold dark:text-white">
             Order Now
           </button>
         </div>

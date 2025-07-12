@@ -21,8 +21,8 @@ const MainDishes = () => {
           ))}
         </div>
       </div>
-      <div className="w-full py-12 lg:h-auto bg-dish-color">
-        <h1 className="mb-12 text-3xl text-center text-white md:text-4xl lg:text-5xl dark:text-white">
+      <div className="w-full py-12 lg:h-auto bg-dish-color dark:bg-ethiopian-dark">
+        <h1 className="mb-12 text-3xl text-center text-white md:text-4xl lg:text-5xl dark:text-white font-playfair ">
           The Ethiopian{" "}
           <span className="pb-1 border-b-4 border-yellow-400">Dining Ex</span>
           perience
