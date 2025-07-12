@@ -17,7 +17,24 @@ import mainDish6 from "@/assets/dulet.jpg";
 import mainDish7 from "@/assets/mainDish7.png";
 import mainDish8 from "@/assets/mainDish8.png";
 import mainDish9 from "@/assets/mainDish6.png";
-
+import Gomen from "@/assets/Starters/Gomen.jpg";
+import Salad from "@/assets/Starters/Salad.png";
+import starter1 from "@/assets/Starters/starter1.jpg";
+import starter2 from "@/assets/Starters/starter2.jpg";
+import starter4 from "@/assets/Starters/starter4.jpg";
+import starter5 from "@/assets/Starters/starter5.jpg";
+import coffee from "@/assets/Drinks/Coffee.jpg";
+import Beso from "@/assets/Drinks/Beso.jpg";
+import Wine from "@/assets/Drinks/Wine.jpg";
+import Tela from "@/assets/Drinks/Tela.jpg";
+import tej from "@/assets/Drinks/tej.jpg";
+import keneto from "@/assets/Drinks/Keneto.jpg";
+import dessert1 from "@/assets/desserts/dessert1.jpg";
+import dessert2 from "@/assets/desserts/dessert2.jpg";
+import dessert3 from "@/assets/desserts/dessert3.jpg";
+import dessert4 from "@/assets/desserts/dessert4.jpg";
+import dessert5 from "@/assets/desserts/dessert5.jpg";
+import dessert6 from "@/assets/desserts/dessert6.jpg";
 export const Dishs = [
   {
     id: 1,
@@ -102,35 +119,99 @@ export const Dishs = [
     price: "$22",
     images: img10,
   },
-  {
-    id: 11,
-    name: "kik alicha",
-    description: "Fasting food",
-    catagory: "veg",
-    price: "$12",
-    images: img10,
-  },
 ];
 export const drinks = [
   {
     id: 1,
-    name: "Totot Kitfo",
-    description: "Classic kitfo with cabbage",
-    catagory: "non-veg",
+    name: "Buna-Coffee",
+    description:
+      "Traditional Ethiopian coffee brewed with care and served with love",
+    price: " $10",
+    images: coffee,
+  },
+  {
+    id: 2,
+    name: "Beso Shake",
+    description: "A creamy and delicious shake made with roasted barley.",
     price: " $15",
-    images: img1,
-    featured: true,
+    images: Beso,
+  },
+  {
+    id: 3,
+    name: "Tela",
+    description: "A traditional Ethiopian beer made from barley and maize.",
+    price: " $8",
+    images: Tela,
+  },
+  {
+    id: 4,
+    name: "Wine",
+    description: "A selection of fine Ethiopian wines",
+    price: " $10",
+    images: Wine,
+  },
+  {
+    id: 5,
+    name: "Keneto",
+    description: "A refreshing drink made from barley and spices.",
+    price: " $14",
+    images: keneto,
+  },
+  {
+    id: 6,
+    name: "Tej",
+    description: "Traditional honey wine, sweet and aromatic.",
+    price: " $12",
+    images: tej,
   },
 ];
 export const desserts = [
   {
     id: 1,
-    name: "Totot Kitfo",
-    description: "Classic kitfo with cabbage",
-    catagory: "non-veg",
+    name: "Ergo Feres",
+    description:
+      "Fresh Ethiopian-style yogurt topped with mixed berries and a dash of honey.",
     price: " $15",
-    images: img1,
-    featured: true,
+    images: dessert1,
+  },
+  {
+    id: 2,
+    name: "Totot Dessert",
+    description: "Classic Savory ground beef seasoned with Ethiopian spices",
+    price: " $15",
+    images: dessert2,
+  },
+  {
+    id: 3,
+    name: "Totot Cake",
+    description:
+      "Creamy pumpkin cheesecake with a hint of cardamom and honey drizzle.",
+    price: " $5",
+    images: dessert3,
+  },
+  {
+    id: 4,
+    name: "Buna Be Dabo",
+    description:
+      "Freshly brewed Ethiopian coffee paired with spongy teff flour bread and fruit jam.",
+    price: " $12",
+    images: dessert4,
+  },
+  {
+    id: 5,
+    name: "Ye Buna Tena",
+    description:
+      "Classic Ethiopian coffee paired with a light honey-soaked cake.",
+    price: " $12",
+    images: dessert5,
+  },
+  {
+    id: 6,
+    name: "Ye Misto Kurkur",
+    description:
+      "A selection of traditional Ethiopian cookies and honey-drenched fritters.",
+    price: " $13",
+    images: dessert6,
   },
 ];
 export const features = [
@@ -201,5 +282,52 @@ export const mainDish = [
       "Sautéed beef or lamb cubes with onions, jalapeños, and rosemary, cooked to perfection in a traditional Ethiopian style.",
     price: "$16",
     images: mainDish9,
+  },
+];
+export const starter = [
+  {
+    id: 1,
+    name: "Gomen",
+    description: "Savory well prepared salad with Ethiopian touch.",
+    price: "$19.95",
+    images: Gomen,
+  },
+  {
+    id: 2,
+    name: "Salad Kitfo",
+    description:
+      "Ground vegetables mixed with fresh cabbage and traditional spices.",
+    price: "$18",
+    images: Salad,
+  },
+  {
+    id: 3,
+    name: "Totot Salad",
+    description: "Savory ground beef seasoned with Ethiopian spices.",
+    price: "$15",
+    images: starter1,
+  },
+  {
+    id: 4,
+    name: "Gomen Soup",
+    description:
+      "Well made bone soup mixed with fresh dhania and traditional spices.",
+    price: "$18",
+    images: starter2,
+  },
+  {
+    id: 5,
+    name: "Shelie",
+    description: "Finely chilled oyster seasoned with herbs.",
+    price: "$20",
+    images: starter5,
+  },
+  {
+    id: 6,
+    name: "Finta",
+    description:
+      "A spicy blend of spaghetti, garam sauce topped with melted cheese",
+    price: "$22",
+    images: starter4,
   },
 ];

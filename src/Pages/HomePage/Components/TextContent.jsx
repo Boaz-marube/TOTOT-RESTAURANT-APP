@@ -33,7 +33,7 @@ export default function TextContent() {
       <div className="w-full px-3 mx-auto max-w-7xl sm:px-6 lg:px-7">
         <div className="flex flex-col items-center text-center">
           {/* Typewriter Heading with conditional cursor */}
-          <h1 className="mb-2 text-3xl font-bold text-white sm:text-4xl md:text-5xl lg:text-5xl font-playfair">
+          <h1 className="mb-4 text-4xl font-bold text-white md:text-5xl lg:text-6xl font-playfair text-pretty">
             {displayedText}
             {showCursor && <span className="animate-pulse">|</span>}
           </h1>
