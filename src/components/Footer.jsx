@@ -1,7 +1,14 @@
-import { useState, useEffect } from "react"; 
+import { useState, useEffect } from "react";
 import logo from "@/assets/toto-logo.png";
 import { Link } from "react-router-dom";
 import { Phone, Locate, Mail } from "lucide-react";
+import {
+  FaFacebook,
+  FaInstagram,
+  FaLinkedin,
+  FaTwitter,
+  FaYoutube,
+} from "react-icons/fa";
 const Footer = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [currentDay, setCurrentDay] = useState("");
@@ -96,11 +103,11 @@ const Footer = () => {
             {/* Social Media Links */}
             <div className="flex space-x-4">
               {[
-                { href: "https://facebook.com", icon: "fa-facebook-f" },
-                { href: "https://instagram.com", icon: "fa-instagram" },
-                { href: "https://x.com", icon: "fa-x-twitter" },
-                { href: "https://linkedin.com", icon: "fa-linkedin-in" },
-                { href: "https://youtube.com", icon: "fa-youtube" },
+                { href: "https://facebook.com", icon: <FaFacebook /> },
+                { href: "https://instagram.com", icon: <FaInstagram /> },
+                { href: "https://x.com", icon: <FaTwitter /> },
+                { href: "https://linkedin.com", icon: <FaLinkedin /> },
+                { href: "https://youtube.com", icon: <FaYoutube /> },
               ].map((item, i) => (
                 <a
                   key={i}
@@ -109,7 +116,7 @@ const Footer = () => {
                   rel="noopener noreferrer"
                   className="transition-colors text-amber-300 hover:text-white"
                 >
-                  <i className={`fa-brands ${item.icon} w-6 h-6`}></i>
+                  {item.icon}
                 </a>
               ))}
             </div>
@@ -124,7 +131,9 @@ const Footer = () => {
                   {isOpen ? (
                     <span className="text-green-400">We're Open!</span>
                   ) : (
-                    <span className="text-red-700 bg-amber-400 p-2 rounded-md">Currently Closed</span>
+                    <span className="p-2 text-red-700 rounded-md bg-amber-400">
+                      Currently Closed
+                    </span>
                   )}
                 </span>
               </div>
@@ -176,25 +185,28 @@ const Footer = () => {
           </section>
 
           {/* Find Us Section with Map */}
-          <section id="location" className="py-6 rounded-lg bg-slate-100 dark:bg-black">
-                <div className="px-4">
-                <h2 className="text-3xl font-bold text-gray-800 dark:text-white mb-6 text-center">
-                    Find Us Here
-                </h2>
-                <div className="w-full h-[300px] rounded-xl overflow-hidden shadow-lg border border-gray-300 dark:border-gray-700">
-                    <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3632.7584772662335!2d38.8061996!3d9.0071273!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x164b8599dd6be6a5%3A0x6f01def6f8644ea2!2zVG90b3QgVHJhZGl0aW9uYWwgZm9vZCBIYWxsIHwgR2VyamkgfCDhibbhibbhibUgfCDhjIjhiK3hjII!5e1!3m2!1sen!2ske!4v1751077256676!5m2!1sen!2ske"
-                    width="600"
-                    height="450"
-                    style={{ border: 0 }}
-                    allowFullScreen=""
-                    loading="lazy"
-                    referrerPolicy="no-referrer-when-downgrade"
-                    title="Restaurant Location Map"
-                    ></iframe>
-                </div>
-                </div>
-            </section>
+          <section
+            id="location"
+            className="py-6 rounded-lg bg-slate-100 dark:bg-black"
+          >
+            <div className="px-4">
+              <h2 className="mb-6 text-3xl font-bold text-center text-gray-800 dark:text-white">
+                Find Us Here
+              </h2>
+              <div className="w-full h-[300px] rounded-xl overflow-hidden shadow-lg border border-gray-300 dark:border-gray-700">
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3632.7584772662335!2d38.8061996!3d9.0071273!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x164b8599dd6be6a5%3A0x6f01def6f8644ea2!2zVG90b3QgVHJhZGl0aW9uYWwgZm9vZCBIYWxsIHwgR2VyamkgfCDhibbhibbhibUgfCDhjIjhiK3hjII!5e1!3m2!1sen!2ske!4v1751077256676!5m2!1sen!2ske"
+                  width="600"
+                  height="450"
+                  style={{ border: 0 }}
+                  allowFullScreen=""
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title="Restaurant Location Map"
+                ></iframe>
+              </div>
+            </div>
+          </section>
         </div>
 
         {/* Footer Bottom */}
