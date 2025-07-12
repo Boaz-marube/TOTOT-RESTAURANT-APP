@@ -8,7 +8,7 @@ const Drink = () => {
       {/* Hero Header */}
       <div className="w-full h-30 p-4 sm:h-40 md:h-52 lg:h-60 bg-dish-color flex items-center justify-center dark:bg-ethiopian-dark">
         <h2 className="text-white text-3xl sm:text-4xl lg:text-5xl text-center">
-          Dri<span className="border-b-4 border-yellow-400 pb-1">nks Dis</span>hes
+          D<span className="border-b-4 border-yellow-400 pb-1">rin</span>ks
         </h2>
       </div>
 

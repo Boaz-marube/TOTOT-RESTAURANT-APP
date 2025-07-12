@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ArrowBigLeft, ArrowBigRight, Circle, CircleDot } from "lucide-react";
+import { ChevronLeft, ChevronRight, Circle, CircleDot } from "lucide-react";
 import TextContent from "./TextContent";
 const ImageSlider = ({
   imagesUrl,
@@ -46,13 +46,13 @@ const ImageSlider = ({
         className="absolute top-0 bottom-0 left-0 block p-2 mt-2 cursor-pointer lg:p-6 sm:p-2"
         onClick={showPrevImage}
       >
-        <ArrowBigLeft className="w-8 h-8 text-white fill-black" />
+        <ChevronLeft className="w-8 h-8 bg-amber-500 text-white rounded-full "  />
       </button>
       <button
         className="absolute top-0 bottom-0 right-0 block p-2 mt-2 cursor-pointer lg:p-6 sm:p-2 "
         onClick={showNextImage}
       >
-        <ArrowBigRight className="w-8 h-8 text-white fill-black" />
+        <ChevronRight className="w-8 h-8 bg-amber-500 text-white rounded-full " />
       </button>
 
       <div className="absolute flex gap-6 bottom-2 left-1/2 -translate-x-2/4 ">
